@@ -1,1 +1,66 @@
-this is index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        select {
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+        #currentAffairs {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Affairs</h1>
+    
+    <select id="monthSelect">
+        <option value="">Select a month</option>
+        <option value="january">January</option>
+        <option value="february">February</option>
+        <option value="march">March</option>
+        <option value="april">April</option>
+        <option value="may">May</option>
+        <option value="june">June</option>
+        <option value="july">July</option>
+        <option value="august">August</option>
+        <option value="september">September</option>
+        <option value="october">October</option>
+        <option value="november">November</option>
+        <option value="december">December</option>
+    </select>
+
+    <div id="currentAffairs">
+        <p>Select a month to view current affairs.</p>
+    </div>
+
+    <script>
+        const monthSelect = document.getElementById('monthSelect');
+        const currentAffairs = document.getElementById('currentAffairs');
+
+        monthSelect.addEventListener('change', function() {
+            const selectedMonth = this.value;
+            if (selectedMonth) {
+                // In a real application, you would fetch data from a server here
+                currentAffairs.innerHTML = `<h2>Current Affairs for ${selectedMonth.charAt(0).toUpperCase() + selectedMonth.slice(1)}</h2>
+                <p>This is where you would display current affairs for the selected month.</p>`;
+            } else {
+                currentAffairs.innerHTML = '<p>Select a month to view current affairs.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
