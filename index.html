@@ -4,63 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Current Affairs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --hover-color: #e8f0fe;
+        }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
             padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
         }
-        select {
+        h1, h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .sidebar h2 {
             margin-bottom: 20px;
-            padding: 5px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
         }
-        #currentAffairs {
-            border: 1px solid #ddd;
-            padding: 10px;
+        .month-dropdown {
+            margin-bottom: 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .month-dropdown summary {
+            cursor: pointer;
+            padding: 12px 15px;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .month-dropdown summary:hover {
+            background-color: var(--hover-color);
+        }
+        .date-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .date-list li {
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .date-list li:hover {
+            background-color: var(--hover-color);
+        }
+        #articleList {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #articleList h2 {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        #articleList ul {
+            padding-left: 20px;
+        }
+        #articleList li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Current Affairs</h1>
-    
-    <select id="monthSelect">
-        <option value="">Select a month</option>
-        <option value="january">January</option>
-        <option value="february">February</option>
-        <option value="march">March</option>
-        <option value="april">April</option>
-        <option value="may">May</option>
-        <option value="june">June</option>
-        <option value="july">July</option>
-        <option value="august">August</option>
-        <option value="september">September</option>
-        <option value="october">October</option>
-        <option value="november">November</option>
-        <option value="december">December</option>
-    </select>
-
-    <div id="currentAffairs">
-        <p>Select a month to view current affairs.</p>
+    <div class="sidebar">
+        <h2>Months</h2>
+        <div id="monthList"></div>
+    </div>
+    <div class="content">
+        <h1>Current Affairs</h1>
+        <div id="articleList"></div>
     </div>
 
     <script>
-        const monthSelect = document.getElementById('monthSelect');
-        const currentAffairs = document.getElementById('currentAffairs');
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
 
-        monthSelect.addEventListener('change', function() {
-            const selectedMonth = this.value;
-            if (selectedMonth) {
-                // In a real application, you would fetch data from a server here
-                currentAffairs.innerHTML = `<h2>Current Affairs for ${selectedMonth.charAt(0).toUpperCase() + selectedMonth.slice(1)}</h2>
-                <p>This is where you would display current affairs for the selected month.</p>`;
-            } else {
-                currentAffairs.innerHTML = '<p>Select a month to view current affairs.</p>';
-            }
-        });
+        const monthList = document.getElementById('monthList');
+        const articleList = document.getElementById('articleList');
+
+        function createMonthList() {
+            months.forEach(month => {
+                const details = document.createElement('details');
+                details.className = 'month-dropdown';
+                
+                const summary = document.createElement('summary');
+                summary.textContent = month;
+                details.appendChild(summary);
+
+                const dateList = document.createElement('ul');
+                dateList.className = 'date-list';
+
+                for (let i = 1; i <= 30; i++) {
+                    const li = document.createElement('li');
+                    li.textContent = `${month} ${i}`;
+                    li.onclick = () => showArticles(`${month} ${i}`);
+                    dateList.appendChild(li);
+                }
+
+                details.appendChild(dateList);
+                monthList.appendChild(details);
+            });
+        }
+
+        function showArticles(date) {
+            articleList.innerHTML = `
+                <h2>Articles for ${date}</h2>
+                <ul>
+                    <li>Global Economy: Major shifts in international trade policies announced</li>
+                    <li>Technology: Revolutionary quantum computing breakthrough achieved</li>
+                    <li>Health: New study reveals promising results in cancer treatment research</li>
+                    <li>Environment: Innovative sustainable energy solution gains worldwide attention</li>
+                </ul>
+            `;
+        }
+
+        function showTodayArticles() {
+            const today = new Date();
+            const month = months[today.getMonth()];
+            const date = today.getDate();
+            showArticles(`${month} ${date}`);
+        }
+
+        // Initialize the page
+        createMonthList();
+        showTodayArticles();
     </script>
 </body>
 </html>
