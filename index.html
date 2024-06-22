@@ -6,7 +6,7 @@
     <title>Current Affairs</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* ... (CSS remains the same as in the previous version) ... */
+        /* ... (CSS remains the same) ... */
     </style>
 </head>
 <body>
@@ -59,18 +59,12 @@
         async function showArticles(year, month, date) {
             articleList.innerHTML = `<h2>Loading articles for ${date}...</h2>`;
             try {
-                const jsonPath = `${year}/${month}/${date}/articles.json`;
-                console.log(`Fetching JSON: ${jsonPath}`);
-                
-                const response = await fetch(jsonPath);
-                if (!response.ok) {
-                    throw new Error('No articles found for this date');
-                }
-                const articles = await response.json();
+                const folderPath = `${year}/${month}/${date}/`;
+                const articles = await getArticles(folderPath);
                 
                 let articlesHtml = `<h2>Articles for ${date}</h2><ul>`;
                 articles.forEach(article => {
-                    articlesHtml += `<li><a href="${year}/${month}/${date}/${article.filename}">${article.title}</a></li>`;
+                    articlesHtml += `<li><a href="${folderPath}${article.filename}">${article.title}</a></li>`;
                 });
                 articlesHtml += '</ul>';
                 articleList.innerHTML = articlesHtml;
@@ -78,6 +72,34 @@
                 articleList.innerHTML = `<h2>Error loading articles for ${date}</h2><p>${error.message}</p>`;
                 console.error('Error:', error);
             }
+        }
+
+        async function getArticles(folderPath) {
+            const articles = [];
+            let articleNumber = 1;
+
+            while (true) {
+                const filename = `article${articleNumber}.html`;
+                const filePath = `${folderPath}${filename}`;
+                
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) break;
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const title = doc.querySelector('title').textContent;
+
+                    articles.push({ filename, title });
+                    articleNumber++;
+                } catch (error) {
+                    console.error(`Error fetching ${filename}:`, error);
+                    break;
+                }
+            }
+
+            return articles;
         }
 
         function showTodayArticles() {
