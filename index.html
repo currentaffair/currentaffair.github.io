@@ -6,7 +6,112 @@
     <title>Current Affairs</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* ... (CSS remains the same) ... */
+        :root {
+            --primary-color: #4a90e2;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --hover-color: #e8f0fe;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .month-dropdown {
+            margin-bottom: 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .month-dropdown summary {
+            cursor: pointer;
+            padding: 12px 15px;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .month-dropdown summary:hover {
+            background-color: var(--hover-color);
+        }
+        .date-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .date-list li {
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .date-list li:hover {
+            background-color: var(--hover-color);
+        }
+        #articleList {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #articleList h2 {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        #articleList ul {
+            padding-left: 20px;
+        }
+        #articleList li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        #articleList a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #articleList a:hover {
+            color: #2c3e50;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
