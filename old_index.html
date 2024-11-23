@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --hover-color: #e8f0fe;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .month-dropdown {
+            margin-bottom: 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .month-dropdown summary {
+            cursor: pointer;
+            padding: 12px 15px;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .month-dropdown summary:hover {
+            background-color: var(--hover-color);
+        }
+        .date-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .date-list li {
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .date-list li:hover {
+            background-color: var(--hover-color);
+        }
+        #articleList {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #articleList h2 {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        #articleList ul {
+            padding-left: 20px;
+        }
+        #articleList li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        #articleList a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #articleList a:hover {
+            color: #2c3e50;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Months</h2>
+        <div id="monthList"></div>
+    </div>
+    <div class="content">
+        <h1>Current Affairs</h1>
+        <div id="articleList"></div>
+    </div>
+
+    <script>
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const monthList = document.getElementById('monthList');
+        const articleList = document.getElementById('articleList');
+
+        function createMonthList() {
+            const currentYear = new Date().getFullYear();
+            months.forEach(month => {
+                const details = document.createElement('details');
+                details.className = 'month-dropdown';
+                
+                const summary = document.createElement('summary');
+                summary.textContent = month;
+                details.appendChild(summary);
+
+                const dateList = document.createElement('ul');
+                dateList.className = 'date-list';
+
+                for (let i = 1; i <= 31; i++) {
+                    const li = document.createElement('li');
+                    const paddedDate = i.toString().padStart(2, '0');
+                    const paddedMonth = (months.indexOf(month) + 1).toString().padStart(2, '0');
+                    const dateString = `${paddedDate}-${paddedMonth}-${currentYear.toString().slice(-2)}`;
+                    li.textContent = dateString;
+                    li.onclick = () => showArticles(currentYear, month, dateString);
+                    dateList.appendChild(li);
+                }
+
+                details.appendChild(dateList);
+                monthList.appendChild(details);
+            });
+        }
+
+        async function showArticles(year, month, date) {
+            articleList.innerHTML = `<h2>Loading articles for ${date}...</h2>`;
+            try {
+                const folderPath = `${year}/${month}/${date}/`;
+                const articles = await getArticles(folderPath);
+                
+                let articlesHtml = `<h2>Articles for ${date}</h2><ul>`;
+                articles.forEach(article => {
+                    articlesHtml += `<li><a href="${folderPath}${article.filename}">${article.title}</a></li>`;
+                });
+                articlesHtml += '</ul>';
+                articleList.innerHTML = articlesHtml;
+            } catch (error) {
+                articleList.innerHTML = `<h2>Error loading articles for ${date}</h2><p>${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+
+        async function getArticles(folderPath) {
+            const articles = [];
+            let articleNumber = 1;
+
+            while (true) {
+                const filename = `article${articleNumber}.html`;
+                const filePath = `${folderPath}${filename}`;
+                
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) break;
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const title = doc.querySelector('title').textContent;
+
+                    articles.push({ filename, title });
+                    articleNumber++;
+                } catch (error) {
+                    console.error(`Error fetching ${filename}:`, error);
+                    break;
+                }
+            }
+
+            return articles;
+        }
+
+        function showTodayArticles() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = months[today.getMonth()];
+            const date = today.getDate().toString().padStart(2, '0');
+            const monthPadded = (today.getMonth() + 1).toString().padStart(2, '0');
+            const dateString = `${date}-${monthPadded}-${year.toString().slice(-2)}`;
+            console.log(`Showing articles for today: ${dateString}`);
+            showArticles(year, month, dateString);
+        }
+
+        // Initialize the page
+        createMonthList();
+        showTodayArticles();
+    </script>
+</body>
+</html>
