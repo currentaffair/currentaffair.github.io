@@ -220,9 +220,27 @@
 
             return articles;
         }
+	
+	
+	function clearArticles() {
+	    const editorialList = document.getElementById('editorialList');
+	    const quickFactsList = document.getElementById('quickFactsList');
+
+	    // Remove existing article lists, but keep the headers
+	    const editorialHeader = editorialList.querySelector('h2');
+	    const quickFactsHeader = quickFactsList.querySelector('h2');
+	    
+	    editorialList.innerHTML = '';
+	    editorialList.appendChild(editorialHeader);
+	    
+	    quickFactsList.innerHTML = '';
+	    quickFactsList.appendChild(quickFactsHeader);
+	}
 
         async function showArticles(date) {
-            const dateString = formatDateString(date);
+	    clearArticles();
+	    
+   	    const dateString = formatDateString(date);
             const year = date.getFullYear();
             const month = date.toLocaleString('default', { month: 'long' });
             
