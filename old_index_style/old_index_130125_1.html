@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --hover-color: #dbeafe;
+            --border-color: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .date-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .nav-button:hover {
+            background: var(--hover-color);
+            border-color: var(--primary-color);
+        }
+
+        .current-date {
+            font-size: 1.4rem;
+            font-weight: 500;
+            padding: 1rem 2.5rem;
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .sections-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .articles-container {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .articles-container h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 1.8rem;
+        }
+
+        .article-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .article-item {
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.25rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .article-item:hover {
+            background: var(--hover-color);
+            transform: translateX(4px);
+        }
+
+        .article-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+            
+            .date-nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .current-date {
+                order: -1;
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem;
+                font-size: 1.2rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                justify-content: center;
+                padding: 0.75rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .articles-container {
+                padding: 1.5rem;
+            }
+
+            .articles-container h2 {
+                font-size: 1.5rem;
+            }
+
+            .article-link {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (min-width: 2000px) {
+            .container {
+                max-width: 1800px;
+            }
+
+            body {
+                font-size: 18px;
+            }
+        } 
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Current Affairs</h1>
+        </header>
+
+        <div class="date-nav">
+            <button id="prevDay" class="nav-button">
+                ← Previous Day
+            </button>
+            <div id="currentDate" class="current-date"></div>
+            <button id="nextDay" class="nav-button">
+                Next Day →
+            </button>
+        </div>
+
+        <div class="sections-container">
+            <div id="editorialList" class="articles-container">
+                <h2>Editorial</h2>
+            </div>
+            <div id="quickFactsList" class="articles-container">
+                <h2>Quick Facts</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+
+        function formatDateString(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear().toString().slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+
+        function formatDisplayDate(date) {
+            return date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        async function getArticles(folderPath, sectionId) {
+            const articles = [];
+            let articleNumber = 1;
+
+            while (true) {
+                const filename = `article${articleNumber}.html`;
+                const filePath = `${folderPath}${filename}`;
+                
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) break;
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const title = doc.querySelector('title').textContent;
+
+                    articles.push({ filename, title });
+                    articleNumber++;
+                } catch (error) {
+                    break;
+                }
+            }
+
+            return articles;
+        }
+	
+	
+	function clearArticles() {
+	    const editorialList = document.getElementById('editorialList');
+	    const quickFactsList = document.getElementById('quickFactsList');
+
+	    // Remove existing article lists, but keep the headers
+	    const editorialHeader = editorialList.querySelector('h2');
+	    const quickFactsHeader = quickFactsList.querySelector('h2');
+	    
+	    editorialList.innerHTML = '';
+	    editorialList.appendChild(editorialHeader);
+	    
+	    quickFactsList.innerHTML = '';
+	    quickFactsList.appendChild(quickFactsHeader);
+	}
+
+        async function showArticles(date) {
+	    clearArticles();
+	    
+   	    const dateString = formatDateString(date);
+            const year = date.getFullYear();
+            const month = date.toLocaleString('default', { month: 'long' });
+            
+            document.getElementById('currentDate').textContent = formatDisplayDate(date);
+            
+            const editorialList = document.getElementById('editorialList');
+            const quickFactsList = document.getElementById('quickFactsList');
+
+            const editoralFolderPath = `${year}/${month}/${dateString}/editorials/`;
+            const quickFactsFolderPath = `${year}/${month}/${dateString}/quick_facts/`;
+
+            try {
+                // Get Editorial Articles
+                const editorialArticles = await getArticles(editoralFolderPath);
+                let editorialHtml = '<ul class="article-list">';
+                if (editorialArticles.length === 0) {
+                    editorialHtml += '<li>No editorial articles found</li>';
+                } else {
+                    editorialArticles.forEach(article => {
+                        editorialHtml += `
+                            <li class="article-item">
+                                <a href="${editoralFolderPath}${article.filename}" class="article-link">
+                                    ${article.title}
+                                </a>
+                            </li>`;
+                    });
+                }
+                editorialHtml += '</ul>';
+                editorialList.innerHTML += editorialHtml;
+
+                // Get Quick Facts Articles
+                const quickFactsArticles = await getArticles(quickFactsFolderPath);
+                let quickFactsHtml = '<ul class="article-list">';
+                if (quickFactsArticles.length === 0) {
+                    quickFactsHtml += '<li>No quick facts articles found</li>';
+                } else {
+                    quickFactsArticles.forEach(article => {
+                        quickFactsHtml += `
+                            <li class="article-item">
+                                <a href="${quickFactsFolderPath}${article.filename}" class="article-link">
+                                    ${article.title}
+                                </a>
+                            </li>`;
+                    });
+                }
+                quickFactsHtml += '</ul>';
+                quickFactsList.innerHTML += quickFactsHtml;
+
+            } catch (error) {
+                editorialList.innerHTML += `<p>Error loading editorial articles: ${error.message}</p>`;
+                quickFactsList.innerHTML += `<p>Error loading quick facts articles: ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+
+        document.getElementById('prevDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            showArticles(currentDate);
+        });
+
+        document.getElementById('nextDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            showArticles(currentDate);
+        });
+
+        // Initialize with today's articles
+        showArticles(currentDate);
+    </script>
+</body>
+</html>
