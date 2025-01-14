@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis of the Draft Digital Personal Data Protection Rules of 2025</title>
+    <style>
+        /* Set base font size for better readability */
+        html {
+            font-size: 25px; /* Base font size : strictly keep base font size 25px*/
+            -webkit-text-size-adjust: 100%; /* Prevent automatic text scaling on iOS */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            /* Use rem for font size to maintain proportions */
+            font-size: 1rem;
+        }
+
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 1.25rem;
+            text-align: center;
+            /* strictly keep the font size 50px for header do not use relative font size here */
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        section {
+            margin: 1.25rem;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #0066cc;
+            border-bottom: 0.125rem solid #0066cc;
+            padding-bottom: 0.313rem;
+            margin-bottom: 0.938rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            background-color: #ffeaff;
+            padding: 0.625rem;
+            margin-bottom: 0.938rem;
+            font-size: 1.125rem;
+        }
+
+        .important {
+            background-color: #e6f7ff;
+            padding: 0.625rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.125rem;
+        }
+
+        .conclusion {
+            background-color: #ccf2ff;
+            padding: 0.938rem;
+            margin-top: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.125rem;
+        }
+
+        footer {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.938rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .tags {
+            margin-top: 0.625rem;
+        }
+
+        .tags span {
+            margin-right: 0.938rem;
+            display: inline-block;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive typography using viewport width */
+        @media screen and (max-width: 768px) {
+            html {
+                font-size: 14px; /* Slightly smaller base size for mobile */
+            }
+
+            header {
+                font-size: 2rem;
+                padding: 1rem;
+            }
+
+            section {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        /* For larger screens */
+        @media screen and (min-width: 1200px) {
+            html {
+                font-size: 25px; /* Slightly larger base size for desktop */
+            }
+
+            .section {
+                max-width: 1200px;
+                margin: 1.25rem auto;
+            }
+        }
+
+        /* High contrast and readability improvements */
+        @media (prefers-contrast: more) {
+            body {
+                line-height: 1.8;
+            }
+            
+            .highlight, .important, .conclusion {
+                border: 2px solid #000;
+            }
+        }
+
+        img {
+            /* Base styles */
+            width: 100%;
+            height: auto;
+            max-width: 100%;/*1600px;*/
+            aspect-ratio: 25/6;  /* Maintains consistent image proportions */
+            object-fit: cover;   /* Ensures image fills container while maintaining aspect ratio */
+            border-radius: 8px;
+            margin: 0 auto 5px; /* Centers image and keeps bottom margin */
+            display: block;      /* Removes unwanted space below image */
+
+            /* Optional: Smooth loading transition */
+            transition: opacity 0.3s ease;
+
+            /* Optional: Better loading performance */
+            loading: lazy;
+        }
+
+        /* Tablet devices */
+        @media (max-width: 1024px) {
+            img {
+                /* unset aspect ratio for tablet devices*/
+                aspect-ratio: unset;
+                max-width: 100%;  /* Slightly reduced width for better tablet layout */
+                max-height: 200px;
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 768px) {
+            img {
+                /* unset aspect ratio for mobile devices*/
+                aspect-ratio: unset;
+                max-width: 100%;
+                max-height: 300px;
+                margin: 0 auto 15px; /* Slightly reduced margin for mobile */
+                border-radius: 6px;  /* Slightly reduced border radius for mobile */
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            img {
+                /*unset aspect ratio for small mobile devices*/
+                aspect-ratio: unset;
+                max-height: 250px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    Digital Personal Data Protection Rules: A Critical Analysis
+</header>
+
+<section>
+    <img src="title-image.jpg" alt="Title Image">
+    
+    <h2>Introduction</h2>
+    <p>
+        The Draft Digital Personal Data Protection (DPDP) Rules of 2025 are a key development in India's data protection framework. While they are a significant step toward addressing the nation's data privacy concerns, the rules have raised serious concerns regarding executive overreach, vague governance, and the absence of an independent regulatory body. In this article, we explore the authoritarian tendencies embedded in the draft rules and their potential implications.
+    </p>
+
+    <h2>Executive Overreach and Concentration of Power</h2>
+    <p>
+        One of the primary concerns regarding the DPDP rules is the concentration of power within the executive branch of the government. The rules provide broad discretionary powers, allowing the government to regulate personal data handling without clear and transparent guidelines.
+    </p>
+    
+    <h3>Example of Executive Overreach</h3>
+    <p>
+        Under the draft rules, compliance obligations and consent mechanisms may be set either by businesses or dictated by the government. The lack of defined standards makes businesses vulnerable to arbitrary decisions. Moreover, the rules fail to specify clear timelines for breach notifications, further expanding government control over data governance.
+    </p>
+
+    <h2>Lack of Independence for the Data Protection Board (DPB)</h2>
+    <p>
+        The Data Protection Board (DPB) is meant to enforce compliance and adjudicate data breaches. However, it lacks independence due to the executive's significant control over its structure. Members of the DPB, including the chairperson, are appointed by a selection committee headed by the Cabinet Secretary, leading to concerns about potential political influence.
+    </p>
+
+    <h3>Key Issues with DPB Independence</h3>
+    <ul>
+        <li>The selection process is controlled by the executive, making the DPB vulnerable to government interests.</li>
+        <li>Members' service conditions align with central government employees, reducing their autonomy.</li>
+        <li>There are no clear provisions for the removal of DPB members in an insulated manner, increasing the likelihood of government interference.</li>
+    </ul>
+
+    <h2>Vague Provisions and Lack of Transparency</h2>
+    <p>
+        The language in the draft rules is vague, allowing the government significant latitude in interpretation and enforcement. For instance, Rule 22 grants the government the power to requisition data from companies but lacks clear procedural safeguards, opening the door to potential misuse of data.
+    </p>
+
+    <h3>Concerns with Government Data Requisition</h3>
+    <p>
+        The absence of limitations or safeguards on the requisitioning of data raises concerns about potential violations of privacy. Furthermore, the government's restrictive approach to public consultations undermines transparency and public accountability.
+    </p>
+
+    <h2>Exemptions for Government Processing</h2>
+    <p>
+        Rule 5 of the draft rules provides broad exemptions for government agencies, particularly in cases involving subsidies, welfare programs, and state services. While these exemptions may be justified for the sake of public policy, they raise concerns about privacy violations, as government entities are not required to seek consent from individuals.
+    </p>
+
+    <h3>Impact on Citizen Privacy Rights</h3>
+    <p>
+        These exemptions create a double standard, where businesses are required to follow stringent data protection norms, but the government remains exempt from such requirements. The risk of misuse is exemplified by incidents like the Aadhaar-linked welfare exclusions, which have led to vulnerable populations being denied essential services.
+    </p>
+
+    <h2>Procedural Integrity and Digital Leash</h2>
+    <p>
+        The absence of safeguards to prevent state surveillance highlights a significant issue within the draft rules. The government's ability to requisition data without clear oversight is akin to a "digital leash," enabling state control over citizens through their digital presence.
+    </p>
+
+    <h3>Governance of Aadhaar</h3>
+    <p>
+        The UIDAI's opaque management of Aadhaar underscores these concerns. The lack of accessible mechanisms for data correction and dispute resolution has left marginalized communities vulnerable to unfair exclusion from government services.
+    </p>
+
+    <h2>Historical Context: The K.S. Puttaswamy Judgment</h2>
+    <p>
+        The 2017 K.S. Puttaswamy judgment, which reaffirmed privacy as a fundamental right, stands in stark contrast to the provisions of the DPDP rules. The broad discretionary powers granted to the executive in the draft rules undermine the privacy protections laid out in the judgment.
+    </p>
+
+    <h3>Impact on Privacy Protections</h3>
+    <p>
+        The proposed rules appear to shift the balance of power in favor of state control, eroding privacy protections and individual autonomy. This could potentially pave the way for mass surveillance and undermine democratic freedoms.
+    </p>
+
+    <h2>Global Comparisons</h2>
+    <p>
+        Unlike the European Union's GDPR, which ensures robust regulatory independence and stringent checks on government powers, India’s draft rules lack a strong regulatory framework, placing excessive discretionary power in the hands of the government. This deviation from global best practices signals a more authoritarian approach to data protection.
+    </p>
+
+    <h2>Way Forward</h2>
+    <p>
+        To mitigate these concerns, several steps need to be taken:
+    </p>
+    <ul>
+        <li><strong>Independent Data Protection Authority:</strong> Establish an autonomous body to oversee compliance and adjudicate disputes.</li>
+        <li><strong>Transparent Rulemaking:</strong> Public consultations should be inclusive, with submissions made public for counter-comments.</li>
+        <li><strong>Limit Government Powers:</strong> Define clear limitations and safeguards on the government's ability to requisition data.</li>
+        <li><strong>Balance Privacy and Security:</strong> Ensure rules protect privacy while addressing law enforcement needs without compromising constitutional rights.</li>
+    </ul>
+
+    <div class="conclusion">
+        In conclusion, while the Draft DPDP Rules represent an important step towards data protection in India, the concerns surrounding executive overreach, lack of transparency, and insufficient checks on government power must be addressed to ensure that privacy rights are adequately protected.
+    </div>
+</section>
+
+<footer>
+    <div class="tags">
+        <span>data-protection</span>
+        <span>privacy</span>
+        <span>government-regulation</span>
+        <span>digital-rights</span>
+        <span>data-privacy</span>
+    </div>
+</footer>
+
+</body>
+</html>
