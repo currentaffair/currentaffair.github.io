@@ -1,296 +1,86 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India's Genomic Data Set</title>
-    <style>
-        /* Set base font size for better readability */
-        html {
-            font-size: 25px; /* Base font size : strictly keep base font size 25px*/
-            -webkit-text-size-adjust: 100%; /* Prevent automatic text scaling on iOS */
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>India's Genomic Data Set</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            /* Use rem for font size to maintain proportions */
-            font-size: 1rem;
-        }
-
-        header {
-            background-color: #0066cc;
-            color: white;
-            padding: 1.25rem;
-            text-align: center;
-            /* strictly keep the font size 50px for header do not use relative font size here */
-            font-size: 50px;
-            font-weight: bold;
-        }
-
-        section {
-            margin: 1.25rem;
-            padding: 1.25rem;
-            background-color: #ffffff;
-            border-radius: 0.5rem;
-            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-        }
-
-        h2, h3 {
-            color: #0066cc;
-            border-bottom: 0.125rem solid #0066cc;
-            padding-bottom: 0.313rem;
-            margin-bottom: 0.938rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-        }
-
-        .highlight {
-            background-color: #ffeaff;
-            padding: 0.625rem;
-            margin-bottom: 0.938rem;
-            font-size: 1.125rem;
-        }
-
-        .important {
-            background-color: #e6f7ff;
-            padding: 0.625rem;
-            margin-bottom: 1.25rem;
-            font-size: 1.125rem;
-        }
-
-        .conclusion {
-            background-color: #ccf2ff;
-            padding: 0.938rem;
-            margin-top: 1.25rem;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.125rem;
-        }
-
-        footer {
-            background-color: #0066cc;
-            color: white;
-            padding: 0.938rem;
-            text-align: center;
-            font-size: 0.875rem;
-        }
-
-        .tags {
-            margin-top: 0.625rem;
-        }
-
-        .tags span {
-            margin-right: 0.938rem;
-            display: inline-block;
-            font-size: 0.875rem;
-        }
-
-        /* Responsive typography using viewport width */
-        @media screen and (max-width: 768px) {
-            html {
-                font-size: 14px; /* Slightly smaller base size for mobile */
-            }
-
-            header {
-                font-size: 2rem;
-                padding: 1rem;
-            }
-
-            section {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.25rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-        }
-
-        /* For larger screens */
-        @media screen and (min-width: 1200px) {
-            html {
-                font-size: 25px; /* Slightly larger base size for desktop */
-            }
-
-            .section {
-                max-width: 1200px;
-                margin: 1.25rem auto;
-            }
-        }
-
-        /* High contrast and readability improvements */
-        @media (prefers-contrast: more) {
-            body {
-                line-height: 1.8;
-            }
-            
-            .highlight, .important, .conclusion {
-                border: 2px solid #000;
-            }
-        }
-
-        img {
-            /* Base styles */
-            width: 100%;
-            height: auto;
-            max-width: 100%;/*1600px;*/
-            aspect-ratio: 25/5;  /* Maintains consistent image proportions */
-            object-fit: cover;   /* Ensures image fills container while maintaining aspect ratio */
-            border-radius: 8px;
-            margin: 0 auto 5px; /* Centers image and keeps bottom margin */
-            display: block;      /* Removes unwanted space below image */
-
-            /* Optional: Smooth loading transition */
-            transition: opacity 0.3s ease;
-
-            /* Optional: Better loading performance */
-            loading: lazy;
-        }
-
-        /* Tablet devices */
-        @media (max-width: 1024px) {
-            img {
-                /* unset aspect ratio for tablet devices*/
-                aspect-ratio: unset;
-                max-width: 100%;  /* Slightly reduced width for better tablet layout */
-                max-height: 200px;
-            }
-        }
-
-        /* Mobile devices */
-        @media (max-width: 768px) {
-            img {
-                /* unset aspect ratio for mobile devices*/
-                aspect-ratio: unset;
-                max-width: 100%;
-                max-height: 300px;
-                margin: 0 auto 15px; /* Slightly reduced margin for mobile */
-                border-radius: 6px;  /* Slightly reduced border radius for mobile */
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            img {
-                /*unset aspect ratio for small mobile devices*/
-                aspect-ratio: unset;
-                max-height: 250px;
-            }
-        }
-
-    </style>
-</head>
+<link href="../../../../editorials_style.css" rel="stylesheet" type="text/css"/></head>
 <body>
-    <header>
+<header>
         India's Genomic Data Set
     </header>
-    <section>
-        <img src="genomic-data-set-image.jpg" alt="India's Genomic Data Set">
-        <h2>Introduction</h2>
-        <p>
+<section>
+<img alt="India's Genomic Data Set" src="genomic-data-set-image.jpg"/>
+<h2>Introduction</h2>
+<p>
             India recently achieved a historic milestone at the Genome India Data Conclave in New Delhi by launching the Indian Genomic Data (IGD) Set as part of the GenomeIndia Project (GIP). This initiative positions India as a global leader in genomics, providing global researchers access to genome samples and promoting self-reliance in genomic data. With frameworks like the Framework for Exchange of Data Protocols (FeED) and the Indian Biological Data Centre (IBDC), India is poised to make significant contributions to the field of genomics.
         </p>
-
-        <h2>Key Highlights of the Genome India Data Conclave</h2>
-        <p>
+<h2>Key Highlights of the Genome India Data Conclave</h2>
+<p>
             The Indian Genomic Data Set, launched during the Genome India Data Conclave, consists of 10,000 whole genome sequencing (WGS) samples. These samples are archived at the IBDC, India's first national repository for life science data. The data is now accessible to researchers worldwide, helping to advance genomics research and personalized medicine. The IBDC Portal facilitates seamless access to this valuable genetic data.
         </p>
-
-        <h3>FeED Protocols</h3>
-        <p>
+<h3>FeED Protocols</h3>
+<p>
             The FeED Protocols ensure ethical, transparent, and secure sharing of high-quality genomic data. These protocols are implemented under the Biotech-PRIDE (Promotion of Research and Innovation through Data Exchange) Guidelines, which were introduced to provide a framework for sharing biological data across research groups in India.
         </p>
-
-        <h3>GenomeIndia Project</h3>
-        <p>
+<h3>GenomeIndia Project</h3>
+<p>
             The GenomeIndia Project (GIP), led by the Department of Biotechnology (DBT), aims to create a comprehensive database of India’s genetic diversity. The GIP is pivotal in mapping genetic information for over 4,600 distinct population groups in India.
         </p>
-
-        <h2>Biotech-PRIDE Guidelines</h2>
-        <p>
+<h2>Biotech-PRIDE Guidelines</h2>
+<p>
             Released by the DBT in 2021, the Biotech-PRIDE Guidelines allow for the exchange of biological data across research groups, promoting transparency, integration, and equitable access. Under these guidelines, existing datasets are connected to the IBDC, forming the Bio-Grid, which acts as a National Repository for biological data. This Bio-Grid ensures that data exchange occurs under established safety standards and clear access protocols.
         </p>
-
-        <h2>What is the GenomeIndia Project?</h2>
-        <p>
+<h2>What is the GenomeIndia Project?</h2>
+<p>
             The GIP, launched in 2020, aims to map the genetic diversity of India. It plans to sequence and analyze the genomes of individuals from 99 ethnic groups. The goal is to create a baseline genetic map that will aid in the study of health, disease predisposition, and other population-specific traits.
         </p>
-
-        <h3>Phase I of GIP</h3>
-        <p>
+<h3>Phase I of GIP</h3>
+<p>
             The first phase involves sequencing the genomes of 10,000 individuals. The second phase, which focuses on diseases like cancer and diabetes, aims to identify genes linked to these conditions by comparing diseased genomes with healthy ones.
         </p>
-
-        <h3>Significance for India</h3>
-        <p>
+<h3>Significance for India</h3>
+<p>
             India’s unmatched genetic diversity, with over 4,600 distinct population groups, presents a unique opportunity to uncover genetic factors linked to rare diseases and mutations, such as MYBPC3, which is associated with early cardiac arrest.
         </p>
-
-        <h2>Genome Sequencing</h2>
-        <p>
+<h2>Genome Sequencing</h2>
+<p>
             Genome sequencing involves deciphering the order of nucleotide bases in DNA, helping us understand genetic makeup and revealing insights into traits and health risks.
         </p>
-
-        <h2>Benefits of Indigenous Genomic Data</h2>
-        <p class="highlight">
+<h2>Benefits of Indigenous Genomic Data</h2>
+<p class="highlight">
             One of the major benefits of the Indian Genomic Data is the opportunity to develop personalized medicine. As India’s population is genetically diverse, tailoring healthcare solutions based on genetic makeup will enhance treatment effectiveness and outcomes.
         </p>
-        <p>
+<p>
             The Bioeconomy of India has grown significantly, and genomic data is expected to fuel further growth, positioning India as a global leader in biotechnology. Moreover, it will reduce dependence on foreign genomic databases.
         </p>
-
-        <h3>Key Benefits</h3>
-        <ul>
-            <li>Personalized medicine for a diverse population</li>
-            <li>Enhanced genetic tools and diagnostic tests</li>
-            <li>Growth of the bioeconomy in India</li>
-            <li>Positioning India as a global leader in biotechnology</li>
-        </ul>
-
-        <h2>Other Initiatives for Biotechnology Development in India</h2>
-        <ul>
-            <li>BioE3 Policy</li>
-            <li>National Biotechnology Development Strategy 2020-25</li>
-            <li>IndiGen Project</li>
-        </ul>
-
-        <h2>Global Genomic Projects</h2>
-        <p>
+<h3>Key Benefits</h3>
+<ul>
+<li>Personalized medicine for a diverse population</li>
+<li>Enhanced genetic tools and diagnostic tests</li>
+<li>Growth of the bioeconomy in India</li>
+<li>Positioning India as a global leader in biotechnology</li>
+</ul>
+<h2>Other Initiatives for Biotechnology Development in India</h2>
+<ul>
+<li>BioE3 Policy</li>
+<li>National Biotechnology Development Strategy 2020-25</li>
+<li>IndiGen Project</li>
+</ul>
+<h2>Global Genomic Projects</h2>
+<p>
             The Human Genome Project and the Earth BioGenome Project are international initiatives to sequence genomes across species, highlighting the global importance of genomic research.
         </p>
-
-        <div class="conclusion">
+<div class="conclusion">
             In conclusion, the Indian Genomic Data Set is a monumental step forward for genomics research. It empowers India to lead globally in genetic innovation, fostering the growth of a bioeconomy, improving healthcare, and contributing to worldwide scientific understanding.
         </div>
-    </section>
-
-    <footer>
-        <div class="tags">
+</section>
+<footer>
+<div class="tags">
             Tags: genomic-data, genome-india, biotech, india, sequencing, personalized-medicine, genomics, research
         </div>
-    </footer>
+</footer>
 </body>
 </html>

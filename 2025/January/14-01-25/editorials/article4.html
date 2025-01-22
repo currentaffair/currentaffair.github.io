@@ -1,262 +1,54 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draft Digital Personal Data Protection (DPDP) Rules 2025: A Pragmatic Approach to Data Privacy</title>
-    <style>
-        /* Set base font size for better readability */
-        html {
-            font-size: 25px; /* Base font size : strictly keep base font size 25px*/
-            -webkit-text-size-adjust: 100%; /* Prevent automatic text scaling on iOS */
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Draft Digital Personal Data Protection (DPDP) Rules 2025: A Pragmatic Approach to Data Privacy</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            /* Use rem for font size to maintain proportions */
-            font-size: 1rem;
-        }
-
-        header {
-            background-color: #0066cc;
-            color: white;
-            padding: 1.25rem;
-            text-align: center;
-            /* strictly keep the font size 50px for header do not use relative font size here */
-            font-size: 50px;
-            font-weight: bold;
-        }
-
-        section {
-            margin: 1.25rem;
-            padding: 1.25rem;
-            background-color: #ffffff;
-            border-radius: 0.5rem;
-            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-        }
-
-        h2, h3 {
-            color: #0066cc;
-            border-bottom: 0.125rem solid #0066cc;
-            padding-bottom: 0.313rem;
-            margin-bottom: 0.938rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-        }
-
-        .highlight {
-            background-color: #ffeaff;
-            padding: 0.625rem;
-            margin-bottom: 0.938rem;
-            font-size: 1.125rem;
-        }
-
-        .important {
-            background-color: #e6f7ff;
-            padding: 0.625rem;
-            margin-bottom: 1.25rem;
-            font-size: 1.125rem;
-        }
-
-        .conclusion {
-            background-color: #ccf2ff;
-            padding: 0.938rem;
-            margin-top: 1.25rem;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.125rem;
-        }
-
-        footer {
-            background-color: #0066cc;
-            color: white;
-            padding: 0.938rem;
-            text-align: center;
-            font-size: 0.875rem;
-        }
-
-        .tags {
-            margin-top: 0.625rem;
-        }
-
-        .tags span {
-            margin-right: 0.938rem;
-            display: inline-block;
-            font-size: 0.875rem;
-        }
-
-        /* Responsive typography using viewport width */
-        @media screen and (max-width: 768px) {
-            html {
-                font-size: 14px; /* Slightly smaller base size for mobile */
-            }
-
-            header {
-                font-size: 2rem;
-                padding: 1rem;
-            }
-
-            section {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.25rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-        }
-
-        /* For larger screens */
-        @media screen and (min-width: 1200px) {
-            html {
-                font-size: 25px; /* Slightly larger base size for desktop */
-            }
-
-            .section {
-                max-width: 1200px;
-                margin: 1.25rem auto;
-            }
-        }
-
-        /* High contrast and readability improvements */
-        @media (prefers-contrast: more) {
-            body {
-                line-height: 1.8;
-            }
-            
-            .highlight, .important, .conclusion {
-                border: 2px solid #000;
-            }
-        }
-
-        img {
-            /* Base styles */
-            width: 100%;
-            height: auto;
-            max-width: 100%;/*1600px;*/
-            aspect-ratio: 25/6;  /* Maintains consistent image proportions */
-            object-fit: cover;   /* Ensures image fills container while maintaining aspect ratio */
-            border-radius: 8px;
-            margin: 0 auto 5px; /* Centers image and keeps bottom margin */
-            display: block;      /* Removes unwanted space below image */
-
-            /* Optional: Smooth loading transition */
-            transition: opacity 0.3s ease;
-
-            /* Optional: Better loading performance */
-            loading: lazy;
-        }
-
-        /* Tablet devices */
-        @media (max-width: 1024px) {
-            img {
-                /* unset aspect ratio for tablet devices*/
-                aspect-ratio: unset;
-                max-width: 100%;  /* Slightly reduced width for better tablet layout */
-                max-height: 200px;
-            }
-        }
-
-        /* Mobile devices */
-        @media (max-width: 768px) {
-            img {
-                /* unset aspect ratio for mobile devices*/
-                aspect-ratio: unset;
-                max-width: 100%;
-                max-height: 300px;
-                margin: 0 auto 15px; /* Slightly reduced margin for mobile */
-                border-radius: 6px;  /* Slightly reduced border radius for mobile */
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            img {
-                /*unset aspect ratio for small mobile devices*/
-                aspect-ratio: unset;
-                max-height: 250px;
-            }
-        }
-
-    </style>
-</head>
+<link href="../../../../editorials_style.css" rel="stylesheet" type="text/css"/></head>
 <body>
 <header>
     Draft Digital Personal Data Protection (DPDP) Rules 2025: A Pragmatic Approach to Data Privacy
 </header>
 <section>
-    <img src="dpdp-rules.jpg" alt="DPDP Rules Overview Image">
-    <h2>Introduction</h2>
-    <p>The Ministry of Electronics and Information Technology (MeitY) released the Draft Digital Personal Data Protection (DPDP) Rules on January 3, 2025. This move represents a pivotal step towards the operationalization of India’s Digital Personal Data Protection Act, 2023. The draft rules offer a balanced and pragmatic approach to data privacy, drawing a clear contrast to both the stringent European Union General Data Protection Regulation (GDPR) and India’s earlier Personal Data Protection Bill, which was criticized for being overly restrictive.</p>
-    <p>The primary goal of these rules is to ensure a framework for the protection of personal data while also promoting business flexibility. In this article, we will explore the key provisions of the Draft DPDP Rules, assess their pros and cons, and provide a deeper understanding of how these rules aim to balance data protection with ease of compliance.</p>
-
-    <h3>Pros of the Draft DPDP Rules</h3>
-    <h3>1. Pragmatism and Flexibility</h3>
-    <p>The draft rules prioritize outcomes over rigid procedural compliance, which marks a departure from traditional regulatory frameworks. This approach aims to accommodate diverse business models while ensuring robust privacy protection for users.</p>
-
-    <h3>2. Simplified Notice and Consent Mechanisms</h3>
-    <p>The draft rules have significantly simplified the notice and consent process, reducing the burden on users and businesses alike. This approach tackles the issue of "consent fatigue"—a common challenge where users are overwhelmed by consent requests.</p>
-
-    <div class="highlight">
-        <p>Example: Unlike the European Union’s GDPR, which enforces detailed consent pop-ups, India’s draft rules avoid excessive interference in the design of user interfaces. This change aims to streamline user experience while maintaining transparency and control over data collection.</p>
-    </div>
-
-    <h3>3. Sector-Specific Exemptions for Child Data</h3>
-    <p>The draft rules recognize the need for educational institutions and healthcare providers to track children’s data, offering exemptions from seeking parental consent under certain conditions. These sectors are critical in shaping educational outcomes and improving healthcare services, making this exemption a pragmatic decision.</p>
-
-    <div class="highlight">
-        <p>Example: Educational institutions can now collect and use children’s data for learning analytics, enhancing educational strategies without requiring parental consent in every instance.</p>
-    </div>
-
-    <h3>Cons of the Draft DPDP Rules</h3>
-    <h3>1. Data Localisation and Overreach</h3>
-    <p>While the draft rules are progressive, concerns around data localisation and cross-border data transfers remain contentious. The imposition of localisation mandates on Significant Data Fiduciaries (SDFs) creates challenges, as smaller enterprises may struggle to comply with these requirements, potentially leading to regulatory arbitrage.</p>
-
-    <div class="important">
-        <p>Example: The Reserve Bank of India’s 2018 localisation mandate for payment data serves as a model for sector-specific regulations. However, applying this same approach to personal data could risk stifling international business operations.</p>
-    </div>
-
-    <h3>2. Government Overreach</h3>
-    <p>The draft rules introduce provisions that allow government access to sensitive data without clear safeguards to verify the legitimacy of user requests for information on data processing. This raises concerns regarding privacy and user rights.</p>
-
-    <h3>Future Challenges and Gaps</h3>
-    <h3>1. Procedural Integrity and Privacy Challenges</h3>
-    <p>There are significant gaps in procedural integrity that may leave businesses vulnerable to frivolous user requests or breaches of trade secrets. One potential improvement could be providing businesses the right to charge fees for excessive or frivolous requests, similar to GDPR’s approach.</p>
-
-    <h3>2. Beyond Notice and Consent</h3>
-    <p>Reliance on notice-and-consent mechanisms might not be sufficient in the age of ubiquitous data collection. The draft rules should explore alternative privacy frameworks, particularly for emerging technologies like 5G and the Internet of Things (IoT), where traditional methods may fall short.</p>
-
-    <h3 class="conclusion">Conclusion</h3>
-    <p>The Draft DPDP Rules present a much-needed balance between privacy protection and business flexibility. While they are less prescriptive than the GDPR, certain provisions, especially on data localisation and government overreach, may require adjustments to ensure that they do not discourage innovation or create legal uncertainties.</p>
+<img alt="DPDP Rules Overview Image" src="dpdp-rules.jpg"/>
+<h2>Introduction</h2>
+<p>The Ministry of Electronics and Information Technology (MeitY) released the Draft Digital Personal Data Protection (DPDP) Rules on January 3, 2025. This move represents a pivotal step towards the operationalization of India’s Digital Personal Data Protection Act, 2023. The draft rules offer a balanced and pragmatic approach to data privacy, drawing a clear contrast to both the stringent European Union General Data Protection Regulation (GDPR) and India’s earlier Personal Data Protection Bill, which was criticized for being overly restrictive.</p>
+<p>The primary goal of these rules is to ensure a framework for the protection of personal data while also promoting business flexibility. In this article, we will explore the key provisions of the Draft DPDP Rules, assess their pros and cons, and provide a deeper understanding of how these rules aim to balance data protection with ease of compliance.</p>
+<h3>Pros of the Draft DPDP Rules</h3>
+<h3>1. Pragmatism and Flexibility</h3>
+<p>The draft rules prioritize outcomes over rigid procedural compliance, which marks a departure from traditional regulatory frameworks. This approach aims to accommodate diverse business models while ensuring robust privacy protection for users.</p>
+<h3>2. Simplified Notice and Consent Mechanisms</h3>
+<p>The draft rules have significantly simplified the notice and consent process, reducing the burden on users and businesses alike. This approach tackles the issue of "consent fatigue"—a common challenge where users are overwhelmed by consent requests.</p>
+<div class="highlight">
+<p>Example: Unlike the European Union’s GDPR, which enforces detailed consent pop-ups, India’s draft rules avoid excessive interference in the design of user interfaces. This change aims to streamline user experience while maintaining transparency and control over data collection.</p>
+</div>
+<h3>3. Sector-Specific Exemptions for Child Data</h3>
+<p>The draft rules recognize the need for educational institutions and healthcare providers to track children’s data, offering exemptions from seeking parental consent under certain conditions. These sectors are critical in shaping educational outcomes and improving healthcare services, making this exemption a pragmatic decision.</p>
+<div class="highlight">
+<p>Example: Educational institutions can now collect and use children’s data for learning analytics, enhancing educational strategies without requiring parental consent in every instance.</p>
+</div>
+<h3>Cons of the Draft DPDP Rules</h3>
+<h3>1. Data Localisation and Overreach</h3>
+<p>While the draft rules are progressive, concerns around data localisation and cross-border data transfers remain contentious. The imposition of localisation mandates on Significant Data Fiduciaries (SDFs) creates challenges, as smaller enterprises may struggle to comply with these requirements, potentially leading to regulatory arbitrage.</p>
+<div class="important">
+<p>Example: The Reserve Bank of India’s 2018 localisation mandate for payment data serves as a model for sector-specific regulations. However, applying this same approach to personal data could risk stifling international business operations.</p>
+</div>
+<h3>2. Government Overreach</h3>
+<p>The draft rules introduce provisions that allow government access to sensitive data without clear safeguards to verify the legitimacy of user requests for information on data processing. This raises concerns regarding privacy and user rights.</p>
+<h3>Future Challenges and Gaps</h3>
+<h3>1. Procedural Integrity and Privacy Challenges</h3>
+<p>There are significant gaps in procedural integrity that may leave businesses vulnerable to frivolous user requests or breaches of trade secrets. One potential improvement could be providing businesses the right to charge fees for excessive or frivolous requests, similar to GDPR’s approach.</p>
+<h3>2. Beyond Notice and Consent</h3>
+<p>Reliance on notice-and-consent mechanisms might not be sufficient in the age of ubiquitous data collection. The draft rules should explore alternative privacy frameworks, particularly for emerging technologies like 5G and the Internet of Things (IoT), where traditional methods may fall short.</p>
+<h3 class="conclusion">Conclusion</h3>
+<p>The Draft DPDP Rules present a much-needed balance between privacy protection and business flexibility. While they are less prescriptive than the GDPR, certain provisions, especially on data localisation and government overreach, may require adjustments to ensure that they do not discourage innovation or create legal uncertainties.</p>
 </section>
-
 <footer>
-    <div class="tags">
-        <p>Tags: Digital Privacy, Data Protection, DPDP Rules, Data Localization, Consent Mechanisms, Emerging Technologies, 5G, IoT</p>
-    </div>
+<div class="tags">
+<p>Tags: Digital Privacy, Data Protection, DPDP Rules, Data Localization, Consent Mechanisms, Emerging Technologies, 5G, IoT</p>
+</div>
 </footer>
 </body>
 </html>

@@ -1,224 +1,54 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISRO's SPaDeX Mission: Satellite Docking</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ISRO's SPaDeX Mission: Satellite Docking</title>
 
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #fefefe;
-            color: #333;
-            line-height: 1.8;
-            padding: 0 7px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2 {
-            font-family: 'Merriweather', serif;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-size: 2.2em;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            font-size: 1.5em;
-            border-left: 4px solid #3498db;
-            padding-left: 10px;
-            margin-top: 30px;
-        }
-
-        p {
-            margin-bottom: 1.5em;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            border-radius: 0 0 10px 10px;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            background-color: #e0f7fa;
-            color: #00796b;
-            padding: 5px 10px;
-            font-size: 0.9em;
-            border-radius: 20px;
-            border: 1px solid #b2ebf2;
-        }
-
-        /* Desktop styles */
-        @media (min-width: 1024px) {
-            body {
-                font-size: 25px;
-            }
-
-            h1 {
-                font-size: 50px;
-            }
-
-            h2 {
-                font-size: 35px;
-            }
-
-            .container {
-                padding: 40px 60px;
-            }
-
-            img {
-                max-height: 500px;
-                margin: 30px auto;
-            }
-
-            .tag {
-                font-size: 0.8em;
-                padding: 8px 16px;
-            }
-        }
-
-        /* Tablet styles */
-        @media (max-width: 1024px) {
-            .container {
-                max-width: 90%;
-            }
-
-            img {
-                max-width: 100%;
-                max-height: 350px;
-            }
-        }
-
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-            }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            h2 {
-                font-size: 1.4em;
-            }
-
-            .container {
-                padding: 15px;
-                margin: 10px auto;
-            }
-
-            img {
-                width: 100%;
-                height: auto;
-                max-width: 100%;
-                aspect-ratio: 25/6;
-                object-fit: cover;
-                border-radius: 8px;
-                margin: 0 auto 5px;
-                display: block;
-                transition: opacity 0.3s ease;
-                loading: lazy;
-            }
-        }
-
-        @media (max-width: 768px) {
-            img {
-                max-width: 100%;
-                max-height: 300px;
-                aspect-ratio: 16/9;
-                margin: 0 auto 15px;
-                border-radius: 6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            img {
-                max-height: 250px;
-            }
-        }
-    </style>
-</head>
+<link href="../../../../quick_facts_style.css" rel="stylesheet" type="text/css"/></head>
 <body>
-
-    <div class="container">
-        <h1>ISRO's SPaDeX Mission: Satellite Docking</h1>
-        <img src="spadex-mission.jpg" alt="ISRO's SPaDeX Mission" />
-        
-        <p>ISRO is attempting to dock two satellites (SDX01 – Chaser, SDX02 – Target) in space as part of the SPaDeX mission, demonstrating spacecraft rendezvous, docking, and undocking technologies.</p>
-        
-        <h2>Relevance & Launch Details</h2>
-        <p>GS 3 (Space) <br> Launched by PSLV C60 on December 30, 2024, from Satish Dhawan Space Centre, Sriharikota.</p>
-
-        <h2>Trial Update</h2>
-        <ul>
-            <li>The satellites were brought within 3 meters of each other during a trial attempt.</li>
-            <li>The initial separation was 15 meters, successfully reduced to 3 meters before a safe distance was maintained.</li>
-        </ul>
-
-        <h2>Setback and Recovery</h2>
-        <ul>
-            <li>An unexpected drift between the satellites delayed the docking attempt from January 7 to January 8.</li>
-            <li>ISRO overcame the drift issue and is analyzing data for the next docking attempt.</li>
-        </ul>
-
-        <h2>Significance of the Mission</h2>
-        <ul>
-            <li>Key to developing future space technologies for missions like sending an Indian astronaut to the moon.</li>
-            <li>Positioning India alongside U.S., Russia, and China in spacecraft docking expertise.</li>
-        </ul>
-
-        <h2>Next Steps</h2>
-        <p>Docking will be attempted after further data analysis, with the potential to join the ranks of countries that have mastered spacecraft docking.</p>
-
-        <div class="footer">
-            <h4>Tags</h4>
-            <div class="tags">
-                <span class="tag">ISRO</span>
-                <span class="tag">SPaDeX Mission</span>
-                <span class="tag">Satellite Docking</span>
-                <span class="tag">PSLV C60</span>
-                <span class="tag">Space Technologies</span>
-                <span class="tag">Astronaut Mission</span>
-                <span class="tag">Spacecraft Rendezvous</span>
-                <span class="tag">Docking Technology</span>
-                <span class="tag">Geospatial Science</span>
-                <span class="tag">Space Exploration</span>
-                <span class="tag">Space Mission</span>
-                <span class="tag">Data Analysis</span>
-                <span class="tag">Indian Space Program</span>
-            </div>
-        </div>
-    </div>
-
+<div class="container">
+<h1>ISRO's SPaDeX Mission: Satellite Docking</h1>
+<img alt="ISRO's SPaDeX Mission" src="spadex-mission.jpg"/>
+<p>ISRO is attempting to dock two satellites (SDX01 – Chaser, SDX02 – Target) in space as part of the SPaDeX mission, demonstrating spacecraft rendezvous, docking, and undocking technologies.</p>
+<h2>Relevance &amp; Launch Details</h2>
+<p>GS 3 (Space) <br/> Launched by PSLV C60 on December 30, 2024, from Satish Dhawan Space Centre, Sriharikota.</p>
+<h2>Trial Update</h2>
+<ul>
+<li>The satellites were brought within 3 meters of each other during a trial attempt.</li>
+<li>The initial separation was 15 meters, successfully reduced to 3 meters before a safe distance was maintained.</li>
+</ul>
+<h2>Setback and Recovery</h2>
+<ul>
+<li>An unexpected drift between the satellites delayed the docking attempt from January 7 to January 8.</li>
+<li>ISRO overcame the drift issue and is analyzing data for the next docking attempt.</li>
+</ul>
+<h2>Significance of the Mission</h2>
+<ul>
+<li>Key to developing future space technologies for missions like sending an Indian astronaut to the moon.</li>
+<li>Positioning India alongside U.S., Russia, and China in spacecraft docking expertise.</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Docking will be attempted after further data analysis, with the potential to join the ranks of countries that have mastered spacecraft docking.</p>
+<div class="footer">
+<h4>Tags</h4>
+<div class="tags">
+<span class="tag">ISRO</span>
+<span class="tag">SPaDeX Mission</span>
+<span class="tag">Satellite Docking</span>
+<span class="tag">PSLV C60</span>
+<span class="tag">Space Technologies</span>
+<span class="tag">Astronaut Mission</span>
+<span class="tag">Spacecraft Rendezvous</span>
+<span class="tag">Docking Technology</span>
+<span class="tag">Geospatial Science</span>
+<span class="tag">Space Exploration</span>
+<span class="tag">Space Mission</span>
+<span class="tag">Data Analysis</span>
+<span class="tag">Indian Space Program</span>
+</div>
+</div>
+</div>
 </body>
 </html>

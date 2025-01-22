@@ -1,304 +1,105 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Notes Programme Against Fake News</title>
-    <style>
-        /* Set base font size for better readability */
-        html {
-            font-size: 25px; /* Base font size : strictly keep base font size 25px*/
-            -webkit-text-size-adjust: 100%; /* Prevent automatic text scaling on iOS */
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Community Notes Programme Against Fake News</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            /* Use rem for font size to maintain proportions */
-            font-size: 1rem;
-        }
-
-        header {
-            background-color: #0066cc;
-            color: white;
-            padding: 1.25rem;
-            text-align: center;
-            font-size: 50px;
-            font-weight: bold;
-        }
-
-        section {
-            margin: 1.25rem;
-            padding: 1.25rem;
-            background-color: #ffffff;
-            border-radius: 0.5rem;
-            box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-        }
-
-        h2, h3 {
-            color: #0066cc;
-            border-bottom: 0.125rem solid #0066cc;
-            padding-bottom: 0.313rem;
-            margin-bottom: 0.938rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-        }
-
-        .highlight {
-            background-color: #ffeaff;
-            padding: 0.625rem;
-            margin-bottom: 0.938rem;
-            font-size: 1.125rem;
-        }
-
-        .important {
-            background-color: #e6f7ff;
-            padding: 0.625rem;
-            margin-bottom: 1.25rem;
-            font-size: 1.125rem;
-        }
-
-        .conclusion {
-            background-color: #ccf2ff;
-            padding: 0.938rem;
-            margin-top: 1.25rem;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.125rem;
-        }
-
-        footer {
-            background-color: #0066cc;
-            color: white;
-            padding: 0.938rem;
-            text-align: center;
-            font-size: 0.875rem;
-        }
-
-        .tags {
-            margin-top: 0.625rem;
-        }
-
-        .tags span {
-            margin-right: 0.938rem;
-            display: inline-block;
-            font-size: 0.875rem;
-        }
-
-        /* Responsive typography using viewport width */
-        @media screen and (max-width: 768px) {
-            html {
-                font-size: 14px; /* Slightly smaller base size for mobile */
-            }
-
-            header {
-                font-size: 2rem;
-                padding: 1rem;
-            }
-
-            section {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.25rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-        }
-
-        /* For larger screens */
-        @media screen and (min-width: 1200px) {
-            html {
-                font-size: 25px; /* Slightly larger base size for desktop */
-            }
-
-            .section {
-                max-width: 1200px;
-                margin: 1.25rem auto;
-            }
-        }
-
-        /* High contrast and readability improvements */
-        @media (prefers-contrast: more) {
-            body {
-                line-height: 1.8;
-            }
-
-            .highlight, .important, .conclusion {
-                border: 2px solid #000;
-            }
-        }
-
-        img {
-            /* Base styles */
-            width: 100%;
-            height: auto;
-            max-width: 100%;
-            aspect-ratio: 25/6;
-            object-fit: cover;
-            border-radius: 8px;
-            margin: 0 auto 5px;
-            display: block;
-
-            /* Optional: Smooth loading transition */
-            transition: opacity 0.3s ease;
-
-            /* Optional: Better loading performance */
-            loading: lazy;
-        }
-
-        /* Tablet devices */
-        @media (max-width: 1024px) {
-            img {
-                aspect-ratio: unset;
-                max-width: 100%;  
-                max-height: 200px;
-            }
-        }
-
-        /* Mobile devices */
-        @media (max-width: 768px) {
-            img {
-                aspect-ratio: unset;
-                max-width: 100%;
-                max-height: 300px;
-                margin: 0 auto 15px;
-                border-radius: 6px;
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            img {
-                aspect-ratio: unset;
-                max-height: 250px;
-            }
-        }
-    </style>
-</head>
+<link href="../../../../editorials_style.css" rel="stylesheet" type="text/css"/></head>
 <body>
-    <header>Community Notes Programme Against Fake News</header>
-
-    <section>
-        <img src="https://via.placeholder.com/1600x500" alt="Community Notes Image">
-        <h2>Introduction</h2>
-        <p>
+<header>Community Notes Programme Against Fake News</header>
+<section>
+<img alt="Community Notes Image" src="https://via.placeholder.com/1600x500"/>
+<h2>Introduction</h2>
+<p>
             In recent developments, Meta, the parent company of Facebook and Instagram, has taken a significant step by discontinuing its third-party fact-checking program. Instead, the company has launched a Community Notes program, mirroring a similar initiative from the X platform (formerly Twitter). Meta's decision to end its professional fact-checking collaboration has raised concerns about the potential increase in fake news, particularly in the context of India.
         </p>
-    </section>
-
-    <section>
-        <h2>What is a Community Notes Programme?</h2>
-        <p>
+</section>
+<section>
+<h2>What is a Community Notes Programme?</h2>
+<p>
             The Community Notes programme is an initiative designed to combat misinformation and improve content quality through user-generated context. It was first introduced by Twitter in 2021 under the name "Birdwatch" and has since evolved into the Community Notes programme. The fundamental idea behind this program is to empower users to provide context to posts, rather than relying solely on centralized moderation teams.
         </p>
-        <h3>Function of Community Notes</h3>
-        <p>
+<h3>Function of Community Notes</h3>
+<p>
             Users can contribute notes on posts that they believe require clarification or additional context. These notes will only be visible once a diverse group of users agrees that they are accurate and useful. The programme includes an algorithmic review system that ensures only the most balanced and widely supported notes are displayed, reducing the chances of bias.
         </p>
-        <div class="highlight">
-            <strong>Key Features:</strong>
-            <ul>
-                <li>No Editorial Oversight: Notes are community-driven and not curated or edited by platform employees.</li>
-                <li>Algorithmic Review: A rating system ensures fair visibility for the most supported notes.</li>
-                <li>Empowerment of Users: Instead of relying on fact-checkers, users actively contribute to improving the content’s accuracy.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <h2>Concerns Regarding the Community Notes Programme in India</h2>
-        <p>
+<div class="highlight">
+<strong>Key Features:</strong>
+<ul>
+<li>No Editorial Oversight: Notes are community-driven and not curated or edited by platform employees.</li>
+<li>Algorithmic Review: A rating system ensures fair visibility for the most supported notes.</li>
+<li>Empowerment of Users: Instead of relying on fact-checkers, users actively contribute to improving the content’s accuracy.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Concerns Regarding the Community Notes Programme in India</h2>
+<p>
             Although the Community Notes programme offers an alternative to traditional fact-checking, it brings several concerns, particularly in the Indian context:
         </p>
-        <ul>
-            <li><strong>Vulnerability to Misinformation:</strong> Without professional fact-checkers, users may struggle to identify biases and misinformation.</li>
-            <li><strong>Shifting Responsibility to Users:</strong> User-flagged content may face delays in addressing misinformation, leading to inconsistencies and potential spread of false information.</li>
-            <li><strong>Ideological Bias:</strong> Without neutral moderation, content could become politically skewed, contributing to misinformation and polarization.</li>
-            <li><strong>Diversity and Context:</strong> India's cultural and political diversity presents challenges for community-based fact-checking, as varied interpretations could lead to biased conclusions.</li>
-        </ul>
-        <div class="important">
-            <p><strong>In-depth Analysis:</strong> India's political environment, with its diverse opinions and deep-seated ideologies, may not be suitable for the unmoderated, community-driven approach of the Community Notes programme. The risk of partisanship affecting the credibility of content is high, especially during sensitive events like elections.</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>Why is Fact-Checking Essential?</h2>
-        <p>
+<ul>
+<li><strong>Vulnerability to Misinformation:</strong> Without professional fact-checkers, users may struggle to identify biases and misinformation.</li>
+<li><strong>Shifting Responsibility to Users:</strong> User-flagged content may face delays in addressing misinformation, leading to inconsistencies and potential spread of false information.</li>
+<li><strong>Ideological Bias:</strong> Without neutral moderation, content could become politically skewed, contributing to misinformation and polarization.</li>
+<li><strong>Diversity and Context:</strong> India's cultural and political diversity presents challenges for community-based fact-checking, as varied interpretations could lead to biased conclusions.</li>
+</ul>
+<div class="important">
+<p><strong>In-depth Analysis:</strong> India's political environment, with its diverse opinions and deep-seated ideologies, may not be suitable for the unmoderated, community-driven approach of the Community Notes programme. The risk of partisanship affecting the credibility of content is high, especially during sensitive events like elections.</p>
+</div>
+</section>
+<section>
+<h2>Why is Fact-Checking Essential?</h2>
+<p>
             Fact-checking serves as the backbone of fair journalism and political integrity. It is essential to ensure the veracity of the information circulating in the media, particularly on social platforms, where misinformation spreads rapidly. Fact-checking organizations, through their evidence-based methods, contribute significantly to transparency and the integrity of news.
         </p>
-        <div class="highlight">
-            <ul>
-                <li><strong>Fair Journalism:</strong> Ensures media credibility and combats misinformation.</li>
-                <li><strong>Political Integrity:</strong> Safeguards electoral processes by verifying political claims.</li>
-                <li><strong>Accountability:</strong> Holds public figures and organizations to a high standard of truthfulness.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <h2>Challenges in Tackling Fake News</h2>
-        <p>
+<div class="highlight">
+<ul>
+<li><strong>Fair Journalism:</strong> Ensures media credibility and combats misinformation.</li>
+<li><strong>Political Integrity:</strong> Safeguards electoral processes by verifying political claims.</li>
+<li><strong>Accountability:</strong> Holds public figures and organizations to a high standard of truthfulness.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Challenges in Tackling Fake News</h2>
+<p>
             Tackling fake news presents numerous challenges, including a lack of legal definitions, balancing regulation with free speech, and platform accountability. Furthermore, the rapid spread of false information on social media platforms complicates efforts to manage misinformation effectively.
         </p>
-        <div class="highlight">
-            <ul>
-                <li><strong>Legal Challenges:</strong> The lack of a clear legal definition for fake news complicates regulatory actions.</li>
-                <li><strong>Spread of False Information:</strong> False information spreads 70% faster than accurate news.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section>
-        <h2>Provisions to Tackle Fake News in India</h2>
-        <p>
+<div class="highlight">
+<ul>
+<li><strong>Legal Challenges:</strong> The lack of a clear legal definition for fake news complicates regulatory actions.</li>
+<li><strong>Spread of False Information:</strong> False information spreads 70% faster than accurate news.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Provisions to Tackle Fake News in India</h2>
+<p>
             Several provisions are in place to tackle fake news in India, including the Press Council of India, the News Broadcasters Association, and provisions in the Indian Penal Code (IPC). These organizations work to maintain media ethics and prevent the spread of false information.
         </p>
-        <div class="highlight">
-            <ul>
-                <li><strong>Press Council of India:</strong> Responsible for censure or warnings against fake news.</li>
-                <li><strong>Indian Penal Code:</strong> Specific sections deal with fake news inciting violence or unrest.</li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="conclusion">
-        <h2>Conclusion</h2>
-        <p>
+<div class="highlight">
+<ul>
+<li><strong>Press Council of India:</strong> Responsible for censure or warnings against fake news.</li>
+<li><strong>Indian Penal Code:</strong> Specific sections deal with fake news inciting violence or unrest.</li>
+</ul>
+</div>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>
             The Community Notes programme presents an innovative approach to combating fake news, but it is not without its challenges, especially in a diverse and politically complex country like India. While user-generated context can provide valuable insights, there is a need for professional oversight and accountability to ensure that misinformation is minimized. Therefore, a hybrid model combining both user-driven and expert moderation may be the most effective way forward.
         </p>
-    </section>
-
-    <footer>
-        <div class="tags">
-            <span>Fake News</span>
-            <span>Community Notes</span>
-            <span>Fact-Checking</span>
-            <span>India</span>
-            <span>Social Media</span>
-        </div>
-    </footer>
+</section>
+<footer>
+<div class="tags">
+<span>Fake News</span>
+<span>Community Notes</span>
+<span>Fact-Checking</span>
+<span>India</span>
+<span>Social Media</span>
+</div>
+</footer>
 </body>
 </html>
