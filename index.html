@@ -72,8 +72,17 @@
 	}
 
 	.nav-button {
+	    /* Set fixed width and height */
+	    width: 140px;
+	    height: 44px;
+	    /* Use flex to maintain consistent layout */
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 0.75rem;
+	    /* Other styles */
 	    padding: 0.75rem 1.5rem;
-	    border: none;
+	    border: 1px solid var(--border-color);
 	    background: var(--card-bg);
 	    color: var(--text-color);
 	    border-radius: 0.75rem;
@@ -81,17 +90,17 @@
 	    font-weight: 500;
 	    cursor: pointer;
 	    transition: all 0.2s ease;
-	    display: flex;
-	    align-items: center;
-	    gap: 0.75rem;
 	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	    border: 1px solid var(--border-color);
+	    /* Prevent text wrapping */
+	    white-space: nowrap;
 	}
 
 	.nav-button i {
 	    font-size: 1.1rem;
 	    color: inherit;
 	    transition: color 0.2s ease;
+	    /* Ensure icon maintains size */
+	    flex-shrink: 0;
 	}
 
 	.nav-button.active {
@@ -99,15 +108,18 @@
 	    color: white;
 	    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
 	    border-color: var(--primary-color);
+	    /* Remove any potential size changes when active */
+	    transform: none;
 	}
 
 	.nav-button:not(.active):hover {
 	    background: var(--hover-color);
 	    color: var(--primary-color);
+	    /* Modify hover effect to not change size */
 	    transform: translateY(-1px);
 	}
         .date-indicator {
-	    display:none;	
+	    display:none;
             position: fixed;
             top: 20px;
             left: 20px;
