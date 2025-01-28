@@ -3,285 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Current Affairs</title>
+    <title>Current Affairs Viewer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-	/* Root variables */
-	:root {
-	    --primary-color: #2563eb;
-	    --text-color: #1f2937;
-	    --bg-color: #f3f4f6;
-	    --card-bg: #ffffff;
-	    --hover-color: #dbeafe;
-	    --border-color: #e5e7eb;
-	}
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --hover-color: #dbeafe;
+            --border-color: #e5e7eb;
+        }
 
-	/* Base styles */
-	body {
-	    font-family: 'Inter', sans-serif;
-	    margin: 0;
-	    padding: 0;
-	    background-color: var(--bg-color);
-	    color: var(--text-color);
-	    min-height: 100vh;
-	    font-size: 16px;
-	    line-height: 1.6;
-	}
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-	.container {
-	    max-width: 1400px;
-	    margin: 0 auto;
-	    padding: 2rem;
-	}
+        .container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
 
-	/* Header styles */
-	.header {
-	    text-align: center;
-	    margin-bottom: 2rem;
-	    padding: 1rem;
+        .articles-container {
+            height: calc(100vh - 80px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            transition: transform 0.3s ease;
+            background: var(--card-bg);
+        }
+
+        .article-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+	.bottom-nav {
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
 	    background: var(--card-bg);
-	    border-radius: 1rem;
-	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	}
-
-	h1 {
-	    color: var(--primary-color);
-	    font-size: 2.7rem;
-	    margin: 0;
-	    font-weight: 900;
-	}
-
-	/* Date navigation styles */
-	.date-nav {
-	    background: var(--card-bg);
-	    padding: 1.5rem;
-	    border-radius: 1rem;
-	    margin: 2rem 0;
-	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	}
-
-	.date-controls {
+	    padding: 0.5rem 1rem;
 	    display: flex;
-	    flex-direction: column;
-	    gap: 1rem;
-	}
-
-	.controls-row {
-	    display: flex;
-	    align-items: center;
 	    justify-content: center;
 	    gap: 1rem;
-	}
-
-	.date-text-row {
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    margin-bottom: 0.5rem;
+	    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+	    z-index: 1000;
+	    border-top: 1px solid var(--border-color);
 	}
 
 	.nav-button {
-	    background: transparent;
+	    padding: 0.75rem 1.5rem;
 	    border: none;
-	    padding: 0.75rem 1rem;
-	    cursor: pointer;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    transition: all 0.2s;
-	    color: var(--primary-color);
-	    font-size: 1.2rem;
-	}
-
-	.nav-button:hover {
-	    color: var(--text-color);
-	    transform: scale(1.1);
-	}
-
-	.date-display {
-	    display: flex;
-	    align-items: center;
-	    gap: 1rem;
-	    padding: 0.5rem 1rem;
-	}
-
-	.current-date {
-	    font-size: 1.5rem;
-	    font-weight: 500;
-	    color: var(--text-color);
-	    margin: 0;
-	    padding: 0.5rem;
-	    text-align: center;
-	}
-
-	#datePicker {
-	    padding: 0.5rem;
-	    border: 1px solid var(--border-color);
-	    border-radius: 0.5rem;
-	    font-family: 'Inter', sans-serif;
-	    font-size: 1rem;
-	    background: var(--bg-color);
-	    cursor: pointer;
-	}
-
-
-	/* Sections and articles styles */
-	.sections-container {
-	    display: grid;
-	    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-	    gap: 2rem;
-	    margin-top: 2rem;
-	}
-
-	.articles-container {
 	    background: var(--card-bg);
-	    border-radius: 1rem;
-	    padding: 2rem;
-	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	}
-
-	.articles-container h2 {
-	    color: var(--primary-color);
-	    margin: 0 0 1.5rem 0;
-	    padding-bottom: 1rem;
-	    border-bottom: 2px solid var(--border-color);
-	    font-size: 1.5rem;
-	}
-
-	.article-list {
-	    list-style: none;
-	    padding: 0;
-	    margin: 0;
-	}
-
-	.article-item {
-	    padding: 1rem;
-	    border: 1px solid var(--border-color);
-	    margin-bottom: 1rem;
-	    border-radius: 0.5rem;
-	    transition: all 0.2s;
-	    background: var(--bg-color);
-	}
-
-	.article-item:last-child {
-	    margin-bottom: 0;
-	}
-
-	.article-item:hover {
-	    background: var(--hover-color);
-	    transform: translateX(4px);
-	}
-
-	.article-link {
 	    color: var(--text-color);
-	    text-decoration: none;
+	    border-radius: 0.75rem;
+	    font-size: 0.95rem;
 	    font-weight: 500;
+	    cursor: pointer;
+	    transition: all 0.2s ease;
+	    display: flex;
+	    align-items: center;
+	    gap: 0.75rem;
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	    border: 1px solid var(--border-color);
+	}
+
+	.nav-button i {
 	    font-size: 1.1rem;
-	    line-height: 1.4;
-	    display: block;
+	    color: inherit;
+	    transition: color 0.2s ease;
 	}
 
-	/* Desktop styles */
-	@media (min-width: 768px) {
-	    .date-controls {
-		flex-direction: column;
-	    }
-	    
-	    .date-text-row {
-		display: flex;
-	    }
-	    
-	    .current-date {
-		font-size: 2.0rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-	    }
-
-	    .nav-button span {
-		display: inline-block;
-		margin: 0 0.5rem;
-	    }
+	.nav-button.active {
+	    background: var(--primary-color);
+	    color: white;
+	    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+	    border-color: var(--primary-color);
 	}
 
-	/* Mobile styles */
-	@media (max-width: 767px) {
-	    .date-nav {
-		padding: 1rem;
-	    }
+	.nav-button:not(.active):hover {
+	    background: var(--hover-color);
+	    color: var(--primary-color);
+	    transform: translateY(-1px);
+	}
+        .date-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-weight: 500;
+        }
 
-	    .controls-row {
-		gap: 0.5rem;
-	    }
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-	    .nav-button {
-		padding: 0.5rem;
-	    }
-
-	    .nav-button span {
-		display: none;
-	    }
-
-	    .current-date {
-		font-size: 1.28rem;
-		padding: 0.25rem;
-		font-weight: 800;
-		width: 100%;
-	    }
-
-	    #datePicker {
-		width: 120px;
-		padding: 0.4rem;
-		font-size: 0.9rem;
-	    }
-	}	
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>Current Affairs</h1>
-        </header>
-
-        <!-- Updated date-nav HTML structure -->
-	<div class="date-nav">
-	    <div class="date-controls">
-		 <div class="controls-row">
-		    <button id="prevDay" class="nav-button">
-			<i class="fas fa-chevron-left"></i>
-			<span>Previous</span>
-		    </button>
-		    
-		    <div class="date-display">
-			<input type="date" id="datePicker">
-		    </div>
-
-		    <button id="nextDay" class="nav-button">
-			<span>Next</span>
-			<i class="fas fa-chevron-right"></i>
-		    </button>
-		</div>
-		<div class="date-text-row">
-		    <div id="currentDate" class="current-date"></div>
-		</div>
-	    </div>
-	</div>
-
-
-        <div class="sections-container">
-            <div id="editorialList" class="articles-container">
-                <h2>Editorial</h2>
-            </div>
-            <div id="quickFactsList" class="articles-container">
-                <h2>Quick Facts</h2>
-            </div>
+        <div class="date-indicator" id="dateIndicator"></div>
+        <div class="scroll-indicator" id="scrollIndicator"></div>
+        <div class="articles-container" id="articlesContainer">
+            <div class="article-wrapper" id="articleWrapper"></div>
         </div>
+	<div class="bottom-nav">
+	    <button id="prelimsBtn" class="nav-button active">
+		<i class="fas fa-book-open"></i>
+		Prelims
+	    </button>
+	    <button id="editorialBtn" class="nav-button">
+		<i class="fas fa-newspaper"></i>
+		Editorial
+	    </button>
+	</div>
     </div>
 
-    <!-- Previous JavaScript remains the same -->
     <script>
-        // All previous JavaScript code remains unchanged
-        let currentDate = new Date();
+        const MONTHS = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        let currentType = 'quick_facts';
+        let currentArticleIndex = 0;
+        let currentDate = null;
+        let articlesByDate = new Map();
+        let isLoadingMore = false;
 
         function formatDateString(date) {
             const day = date.getDate().toString().padStart(2, '0');
@@ -290,40 +175,65 @@
             return `${day}-${month}-${year}`;
         }
 
-        function formatDisplayDate(date) {
-            return date.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+        async function checkDateForArticles(date, type) {
+            const year = date.getFullYear();
+            const month = MONTHS[date.getMonth()];
+            const dateString = formatDateString(date);
+            
+            try {
+                const response = await fetch(`${year}/${month}/${dateString}/${type}/article1.html`);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
         }
 
-        function formatDateForInput(date) {
-            return date.toISOString().split('T')[0];
+        async function findLatestDateWithArticles(type) {
+            const startDate = new Date();
+            let currentCheck = new Date(startDate);
+            
+            for (let i = 0; i < 30; i++) {
+                if (await checkDateForArticles(currentCheck, type)) {
+                    return currentCheck;
+                }
+                currentCheck.setDate(currentCheck.getDate() - 1);
+            }
+            throw new Error('No articles found in the last 30 days');
         }
 
-        // Rest of the JavaScript functions remain the same...
-        // Previous event listeners and initialization code remains the same
-        
-        async function getArticles(folderPath, sectionId) {
+        async function findPreviousDateWithArticles(date, type) {
+            let checkDate = new Date(date);
+            checkDate.setDate(checkDate.getDate() - 1);
+            
+            for (let i = 0; i < 30; i++) {
+                if (await checkDateForArticles(checkDate, type)) {
+                    return checkDate;
+                }
+                checkDate.setDate(checkDate.getDate() - 1);
+            }
+            return null;
+        }
+
+        async function getArticlesForDate(date, type) {
+            const year = date.getFullYear();
+            const month = MONTHS[date.getMonth()];
+            const dateString = formatDateString(date);
             const articles = [];
             let articleNumber = 1;
 
             while (true) {
                 const filename = `article${articleNumber}.html`;
-                const filePath = `${folderPath}${filename}`;
+                const path = `${year}/${month}/${dateString}/${type}/${filename}`;
                 
                 try {
-                    const response = await fetch(filePath);
+                    const response = await fetch(path);
                     if (!response.ok) break;
-
-                    const text = await response.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(text, 'text/html');
-                    const title = doc.querySelector('title').textContent;
-
-                    articles.push({ filename, title });
+                    articles.push({
+                        path,
+                        number: articleNumber,
+                        date: dateString,
+                        fullDate: new Date(date)
+                    });
                     articleNumber++;
                 } catch (error) {
                     break;
@@ -333,96 +243,170 @@
             return articles;
         }
 
-        function clearArticles() {
-            const editorialList = document.getElementById('editorialList');
-            const quickFactsList = document.getElementById('quickFactsList');
-
-            const editorialHeader = editorialList.querySelector('h2');
-            const quickFactsHeader = quickFactsList.querySelector('h2');
-            
-            editorialList.innerHTML = '';
-            editorialList.appendChild(editorialHeader);
-            
-            quickFactsList.innerHTML = '';
-            quickFactsList.appendChild(quickFactsHeader);
+        async function loadArticlesForDate(date) {
+            const dateString = formatDateString(date);
+            if (!articlesByDate.has(dateString)) {
+                const articles = await getArticlesForDate(date, currentType);
+                if (articles.length > 0) {
+                    articlesByDate.set(dateString, articles);
+                }
+            }
+            return articlesByDate.get(dateString) || [];
         }
 
-        async function showArticles(date) {
-            clearArticles();
-            
-            const dateString = formatDateString(date);
-            const year = date.getFullYear();
-            const month = date.toLocaleString('default', { month: 'long' });
-            
-            document.getElementById('currentDate').textContent = formatDisplayDate(date);
-            document.getElementById('datePicker').value = formatDateForInput(date);
-            
-            const editorialList = document.getElementById('editorialList');
-            const quickFactsList = document.getElementById('quickFactsList');
+        function updateDateIndicator(dateString) {
+            const dateParts = dateString.split('-');
+            const date = new Date(20 + dateParts[2], dateParts[1] - 1, dateParts[0]);
+            document.getElementById('dateIndicator').textContent = 
+                date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+        }
 
-            const editoralFolderPath = `${year}/${month}/${dateString}/editorials/`;
-            const quickFactsFolderPath = `${year}/${month}/${dateString}/quick_facts/`;
+        async function loadArticle(dateString, articleIndex) {
+            const articles = articlesByDate.get(dateString);
+            if (!articles || articleIndex >= articles.length) return false;
 
+            const article = articles[articleIndex];
+            const wrapper = document.getElementById('articleWrapper');
+            
             try {
-                // Get Editorial Articles
-                const editorialArticles = await getArticles(editoralFolderPath);
-                let editorialHtml = '<ul class="article-list">';
-                if (editorialArticles.length === 0) {
-                    editorialHtml += '<li class="article-item">No editorial articles found</li>';
-                } else {
-                    editorialArticles.forEach(article => {
-                        editorialHtml += `
-                            <li class="article-item">
-                                <a href="${editoralFolderPath}${article.filename}" class="article-link">
-                                    ${article.title}
-                                </a>
-                            </li>`;
-                    });
-                }
-                editorialHtml += '</ul>';
-                editorialList.innerHTML += editorialHtml;
-
-                const quickFactsArticles = await getArticles(quickFactsFolderPath);
-                let quickFactsHtml = '<ul class="article-list">';
-                if (quickFactsArticles.length === 0) {
-                    quickFactsHtml += '<li class="article-item">No quick facts articles found</li>';
-                } else {
-                    quickFactsArticles.forEach(article => {
-                        quickFactsHtml += `
-                            <li class="article-item">
-                                <a href="${quickFactsFolderPath}${article.filename}" class="article-link">
-                                    ${article.title}
-                                </a>
-                            </li>`;
-                    });
-                }
-                quickFactsHtml += '</ul>';
-                quickFactsList.innerHTML += quickFactsHtml;
-
+                const response = await fetch(article.path);
+                const html = await response.text();
+                
+                wrapper.innerHTML = html;
+                wrapper.scrollTop = 0; // Reset scroll position to top
+                updateDateIndicator(dateString);
+                
+                return true;
             } catch (error) {
-                editorialList.innerHTML += `<p>Error loading editorial articles: ${error.message}</p>`;
-                quickFactsList.innerHTML += `<p>Error loading quick facts articles: ${error.message}</p>`;
-                console.error('Error:', error);
+                console.error('Error loading article:', error);
+                return false;
             }
         }
 
-        document.getElementById('prevDay').addEventListener('click', () => {
-            currentDate.setDate(currentDate.getDate() - 1);
-            showArticles(currentDate);
+        async function navigateToNextArticle() {
+            if (isLoadingMore) return;
+            isLoadingMore = true;
+
+            try {
+                const currentDateString = formatDateString(currentDate);
+                const currentArticles = articlesByDate.get(currentDateString);
+                
+                if (currentArticleIndex < currentArticles.length - 1) {
+                    currentArticleIndex++;
+                    await loadArticle(currentDateString, currentArticleIndex);
+                } else {
+                    const prevDate = await findPreviousDateWithArticles(currentDate, currentType);
+                    if (prevDate) {
+                        const articles = await loadArticlesForDate(prevDate);
+                        if (articles.length > 0) {
+                            currentDate = prevDate;
+                            currentArticleIndex = 0;
+                            await loadArticle(formatDateString(prevDate), 0);
+                        }
+                    }
+                }
+            } finally {
+                isLoadingMore = false;
+            }
+        }
+
+        async function navigateToPreviousArticle() {
+            if (isLoadingMore) return;
+            isLoadingMore = true;
+
+            try {
+                const currentDateString = formatDateString(currentDate);
+                
+                if (currentArticleIndex > 0) {
+                    currentArticleIndex--;
+                    await loadArticle(currentDateString, currentArticleIndex);
+                }
+            } finally {
+                isLoadingMore = false;
+            }
+        }
+
+        async function switchContent(type) {
+            try {
+                currentType = type;
+                currentArticleIndex = 0;
+                articlesByDate.clear();
+                
+                currentDate = await findLatestDateWithArticles(type);
+                
+                const articles = await loadArticlesForDate(currentDate);
+                if (articles.length > 0) {
+                    await loadArticle(formatDateString(currentDate), 0);
+                }
+                
+                document.getElementById('prelimsBtn').classList.toggle('active', type === 'quick_facts');
+                document.getElementById('editorialBtn').classList.toggle('active', type === 'editorials');
+            } catch (error) {
+                console.error('Error switching content:', error);
+                document.getElementById('articleWrapper').innerHTML = '<h1>No articles found</h1>';
+            }
+        }
+
+        let lastWheelTime = Date.now();
+        const WHEEL_THRESHOLD = 100; // milliseconds
+
+        function handleScroll(event) {
+            const currentTime = Date.now();
+            if (currentTime - lastWheelTime < WHEEL_THRESHOLD) return;
+            lastWheelTime = currentTime;
+
+            const wrapper = document.getElementById('articleWrapper');
+            const isAtTop = wrapper.scrollTop === 0;
+            const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
+            
+            if (isAtTop && event.deltaY < 0) {
+                event.preventDefault();
+                navigateToPreviousArticle();
+            } else if (isAtBottom && event.deltaY > 0) {
+                event.preventDefault();
+                navigateToNextArticle();
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('prelimsBtn').addEventListener('click', () => switchContent('quick_facts'));
+        document.getElementById('editorialBtn').addEventListener('click', () => switchContent('editorials'));
+        document.getElementById('articleWrapper').addEventListener('wheel', handleScroll);
+
+        // Touch events
+        let touchStartY = 0;
+        let lastTouchTime = Date.now();
+        const TOUCH_THRESHOLD = 200; // milliseconds
+
+        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
         });
 
-        document.getElementById('nextDay').addEventListener('click', () => {
-            currentDate.setDate(currentDate.getDate() + 1);
-            showArticles(currentDate);
-        });
+        document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
+            const currentTime = Date.now();
+            if (currentTime - lastTouchTime < TOUCH_THRESHOLD) return;
+            lastTouchTime = currentTime;
 
-        document.getElementById('datePicker').addEventListener('change', (e) => {
-            currentDate = new Date(e.target.value);
-            showArticles(currentDate);
-        });
+            const touchY = e.touches[0].clientY;
+            const wrapper = document.getElementById('articleWrapper');
+            const isAtTop = wrapper.scrollTop === 0;
+            const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
+            
+            if (isAtTop && touchY > touchStartY) {
+                e.preventDefault();
+                navigateToPreviousArticle();
+            } else if (isAtBottom && touchY < touchStartY) {
+                e.preventDefault();
+                navigateToNextArticle();
+            }
+        }, { passive: false });
 
-        showArticles(currentDate);
-        document.getElementById('datePicker').value = formatDateForInput(currentDate);
+        // Initial load
+        switchContent('quick_facts');
     </script>
 </body>
 </html>

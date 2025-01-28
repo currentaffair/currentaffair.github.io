@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+	/* Root variables */
+	:root {
+	    --primary-color: #2563eb;
+	    --text-color: #1f2937;
+	    --bg-color: #f3f4f6;
+	    --card-bg: #ffffff;
+	    --hover-color: #dbeafe;
+	    --border-color: #e5e7eb;
+	}
+
+	/* Base styles */
+	body {
+	    font-family: 'Inter', sans-serif;
+	    margin: 0;
+	    padding: 0;
+	    background-color: var(--bg-color);
+	    color: var(--text-color);
+	    min-height: 100vh;
+	    font-size: 16px;
+	    line-height: 1.6;
+	}
+
+	.container {
+	    max-width: 1400px;
+	    margin: 0 auto;
+	    padding: 2rem;
+	}
+
+	/* Header styles */
+	.header {
+	    text-align: center;
+	    margin-bottom: 2rem;
+	    padding: 1rem;
+	    background: var(--card-bg);
+	    border-radius: 1rem;
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	h1 {
+	    color: var(--primary-color);
+	    font-size: 2.7rem;
+	    margin: 0;
+	    font-weight: 900;
+	}
+
+	/* Date navigation styles */
+	.date-nav {
+	    background: var(--card-bg);
+	    padding: 1.5rem;
+	    border-radius: 1rem;
+	    margin: 2rem 0;
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	.date-controls {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 1rem;
+	}
+
+	.controls-row {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 1rem;
+	}
+
+	.date-text-row {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    margin-bottom: 0.5rem;
+	}
+
+	.nav-button {
+	    background: transparent;
+	    border: none;
+	    padding: 0.75rem 1rem;
+	    cursor: pointer;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    transition: all 0.2s;
+	    color: var(--primary-color);
+	    font-size: 1.2rem;
+	}
+
+	.nav-button:hover {
+	    color: var(--text-color);
+	    transform: scale(1.1);
+	}
+
+	.date-display {
+	    display: flex;
+	    align-items: center;
+	    gap: 1rem;
+	    padding: 0.5rem 1rem;
+	}
+
+	.current-date {
+	    font-size: 1.5rem;
+	    font-weight: 500;
+	    color: var(--text-color);
+	    margin: 0;
+	    padding: 0.5rem;
+	    text-align: center;
+	}
+
+	#datePicker {
+	    padding: 0.5rem;
+	    border: 1px solid var(--border-color);
+	    border-radius: 0.5rem;
+	    font-family: 'Inter', sans-serif;
+	    font-size: 1rem;
+	    background: var(--bg-color);
+	    cursor: pointer;
+	}
+
+
+	/* Sections and articles styles */
+	.sections-container {
+	    display: grid;
+	    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	    gap: 2rem;
+	    margin-top: 2rem;
+	}
+
+	.articles-container {
+	    background: var(--card-bg);
+	    border-radius: 1rem;
+	    padding: 2rem;
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	.articles-container h2 {
+	    color: var(--primary-color);
+	    margin: 0 0 1.5rem 0;
+	    padding-bottom: 1rem;
+	    border-bottom: 2px solid var(--border-color);
+	    font-size: 1.5rem;
+	}
+
+	.article-list {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	}
+
+	.article-item {
+	    padding: 1rem;
+	    border: 1px solid var(--border-color);
+	    margin-bottom: 1rem;
+	    border-radius: 0.5rem;
+	    transition: all 0.2s;
+	    background: var(--bg-color);
+	}
+
+	.article-item:last-child {
+	    margin-bottom: 0;
+	}
+
+	.article-item:hover {
+	    background: var(--hover-color);
+	    transform: translateX(4px);
+	}
+
+	.article-link {
+	    color: var(--text-color);
+	    text-decoration: none;
+	    font-weight: 500;
+	    font-size: 1.1rem;
+	    line-height: 1.4;
+	    display: block;
+	}
+
+	/* Desktop styles */
+	@media (min-width: 768px) {
+	    .date-controls {
+		flex-direction: column;
+	    }
+	    
+	    .date-text-row {
+		display: flex;
+	    }
+	    
+	    .current-date {
+		font-size: 2.0rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	    }
+
+	    .nav-button span {
+		display: inline-block;
+		margin: 0 0.5rem;
+	    }
+	}
+
+	/* Mobile styles */
+	@media (max-width: 767px) {
+	    .date-nav {
+		padding: 1rem;
+	    }
+
+	    .controls-row {
+		gap: 0.5rem;
+	    }
+
+	    .nav-button {
+		padding: 0.5rem;
+	    }
+
+	    .nav-button span {
+		display: none;
+	    }
+
+	    .current-date {
+		font-size: 1.28rem;
+		padding: 0.25rem;
+		font-weight: 800;
+		width: 100%;
+	    }
+
+	    #datePicker {
+		width: 120px;
+		padding: 0.4rem;
+		font-size: 0.9rem;
+	    }
+	}	
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Current Affairs</h1>
+        </header>
+
+        <!-- Updated date-nav HTML structure -->
+	<div class="date-nav">
+	    <div class="date-controls">
+		 <div class="controls-row">
+		    <button id="prevDay" class="nav-button">
+			<i class="fas fa-chevron-left"></i>
+			<span>Previous</span>
+		    </button>
+		    
+		    <div class="date-display">
+			<input type="date" id="datePicker">
+		    </div>
+
+		    <button id="nextDay" class="nav-button">
+			<span>Next</span>
+			<i class="fas fa-chevron-right"></i>
+		    </button>
+		</div>
+		<div class="date-text-row">
+		    <div id="currentDate" class="current-date"></div>
+		</div>
+	    </div>
+	</div>
+
+
+        <div class="sections-container">
+            <div id="editorialList" class="articles-container">
+                <h2>Editorial</h2>
+            </div>
+            <div id="quickFactsList" class="articles-container">
+                <h2>Quick Facts</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Previous JavaScript remains the same -->
+    <script>
+        // All previous JavaScript code remains unchanged
+        let currentDate = new Date();
+
+        function formatDateString(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear().toString().slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+
+        function formatDisplayDate(date) {
+            return date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        function formatDateForInput(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Rest of the JavaScript functions remain the same...
+        // Previous event listeners and initialization code remains the same
+        
+        async function getArticles(folderPath, sectionId) {
+            const articles = [];
+            let articleNumber = 1;
+
+            while (true) {
+                const filename = `article${articleNumber}.html`;
+                const filePath = `${folderPath}${filename}`;
+                
+                try {
+                    const response = await fetch(filePath);
+                    if (!response.ok) break;
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const title = doc.querySelector('title').textContent;
+
+                    articles.push({ filename, title });
+                    articleNumber++;
+                } catch (error) {
+                    break;
+                }
+            }
+
+            return articles;
+        }
+
+        function clearArticles() {
+            const editorialList = document.getElementById('editorialList');
+            const quickFactsList = document.getElementById('quickFactsList');
+
+            const editorialHeader = editorialList.querySelector('h2');
+            const quickFactsHeader = quickFactsList.querySelector('h2');
+            
+            editorialList.innerHTML = '';
+            editorialList.appendChild(editorialHeader);
+            
+            quickFactsList.innerHTML = '';
+            quickFactsList.appendChild(quickFactsHeader);
+        }
+
+        async function showArticles(date) {
+            clearArticles();
+            
+            const dateString = formatDateString(date);
+            const year = date.getFullYear();
+            const month = date.toLocaleString('default', { month: 'long' });
+            
+            document.getElementById('currentDate').textContent = formatDisplayDate(date);
+            document.getElementById('datePicker').value = formatDateForInput(date);
+            
+            const editorialList = document.getElementById('editorialList');
+            const quickFactsList = document.getElementById('quickFactsList');
+
+            const editoralFolderPath = `${year}/${month}/${dateString}/editorials/`;
+            const quickFactsFolderPath = `${year}/${month}/${dateString}/quick_facts/`;
+
+            try {
+                // Get Editorial Articles
+                const editorialArticles = await getArticles(editoralFolderPath);
+                let editorialHtml = '<ul class="article-list">';
+                if (editorialArticles.length === 0) {
+                    editorialHtml += '<li class="article-item">No editorial articles found</li>';
+                } else {
+                    editorialArticles.forEach(article => {
+                        editorialHtml += `
+                            <li class="article-item">
+                                <a href="${editoralFolderPath}${article.filename}" class="article-link">
+                                    ${article.title}
+                                </a>
+                            </li>`;
+                    });
+                }
+                editorialHtml += '</ul>';
+                editorialList.innerHTML += editorialHtml;
+
+                const quickFactsArticles = await getArticles(quickFactsFolderPath);
+                let quickFactsHtml = '<ul class="article-list">';
+                if (quickFactsArticles.length === 0) {
+                    quickFactsHtml += '<li class="article-item">No quick facts articles found</li>';
+                } else {
+                    quickFactsArticles.forEach(article => {
+                        quickFactsHtml += `
+                            <li class="article-item">
+                                <a href="${quickFactsFolderPath}${article.filename}" class="article-link">
+                                    ${article.title}
+                                </a>
+                            </li>`;
+                    });
+                }
+                quickFactsHtml += '</ul>';
+                quickFactsList.innerHTML += quickFactsHtml;
+
+            } catch (error) {
+                editorialList.innerHTML += `<p>Error loading editorial articles: ${error.message}</p>`;
+                quickFactsList.innerHTML += `<p>Error loading quick facts articles: ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+
+        document.getElementById('prevDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            showArticles(currentDate);
+        });
+
+        document.getElementById('nextDay').addEventListener('click', () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            showArticles(currentDate);
+        });
+
+        document.getElementById('datePicker').addEventListener('change', (e) => {
+            currentDate = new Date(e.target.value);
+            showArticles(currentDate);
+        });
+
+        showArticles(currentDate);
+        document.getElementById('datePicker').value = formatDateForInput(currentDate);
+    </script>
+</body>
+</html>
