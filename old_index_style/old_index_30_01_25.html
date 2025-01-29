@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --hover-color: #dbeafe;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .articles-container {
+            height: calc(100vh - 80px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            transition: transform 0.3s ease;
+            background: var(--card-bg);
+        }
+
+        .article-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+	    padding-bottom: 100px;
+        }
+
+	.bottom-nav {
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+	    background: var(--card-bg);
+	    padding: 0.5rem 1rem;
+	    display: flex;
+	    justify-content: center;
+	    gap: 1rem;
+	    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+	    z-index: 1000;
+	    border-top: 1px solid var(--border-color);
+	}
+
+	.nav-button {
+	    /* Set fixed width and height */
+	    width: 140px;
+	    height: 44px;
+	    /* Use flex to maintain consistent layout */
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 0.75rem;
+	    /* Other styles */
+	    padding: 0.75rem 1.5rem;
+	    border: 1px solid var(--border-color);
+	    background: var(--card-bg);
+	    color: var(--text-color);
+	    border-radius: 0.75rem;
+	    font-size: 17px; /*0.95rem;*/
+	    font-weight: 500;
+	    cursor: pointer;
+	    /*transition: all 0.2s ease;*/
+	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	    /* Prevent text wrapping */
+	    white-space: nowrap;
+	}
+
+	.nav-button i {
+	    font-size: 1.1rem;
+	    color: inherit;
+	    transition: color 0.2s ease;
+	    /* Ensure icon maintains size */
+	    flex-shrink: 0;
+	}
+
+	.nav-button.active {
+	    background: var(--primary-color);
+	    color: white;
+	    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+	    border-color: var(--primary-color);
+	    /* Remove any potential size changes when active */
+	    transform: none;
+	}
+
+	.nav-button:not(.active):hover {
+	    background: var(--hover-color);
+	    color: var(--primary-color);
+	    /* Modify hover effect to not change size */
+	    transform: translateY(-1px);
+	}
+        .date-indicator {
+	    display:none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="date-indicator" id="dateIndicator"></div>
+        <div class="scroll-indicator" id="scrollIndicator"></div>
+        <div class="articles-container" id="articlesContainer">
+            <div class="article-wrapper" id="articleWrapper"></div>
+        </div>
+	<div class="bottom-nav">
+	    <button id="prelimsBtn" class="nav-button active">
+		<i class="fas fa-book-open"></i>
+		Prelims
+	    </button>
+	    <button id="editorialBtn" class="nav-button">
+		<i class="fas fa-newspaper"></i>
+		Editorial
+	    </button>
+	</div>
+    </div>
+
+    <script>
+        const MONTHS = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        let currentType = 'quick_facts';
+        let currentArticleIndex = 0;
+        let currentDate = null;
+        let articlesByDate = new Map();
+        let isLoadingMore = false;
+
+        function formatDateString(date) {
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear().toString().slice(-2);
+            return `${day}-${month}-${year}`;
+        }
+
+        async function checkDateForArticles(date, type) {
+            const year = date.getFullYear();
+            const month = MONTHS[date.getMonth()];
+            const dateString = formatDateString(date);
+            
+            try {
+                const response = await fetch(`${year}/${month}/${dateString}/${type}/article1.html`);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        async function findLatestDateWithArticles(type) {
+            const startDate = new Date();
+            let currentCheck = new Date(startDate);
+            
+            for (let i = 0; i < 30; i++) {
+                if (await checkDateForArticles(currentCheck, type)) {
+                    return currentCheck;
+                }
+                currentCheck.setDate(currentCheck.getDate() - 1);
+            }
+            throw new Error('No articles found in the last 30 days');
+        }
+
+        async function findPreviousDateWithArticles(date, type) {
+            let checkDate = new Date(date);
+            checkDate.setDate(checkDate.getDate() - 1);
+            
+            for (let i = 0; i < 30; i++) {
+                if (await checkDateForArticles(checkDate, type)) {
+                    return checkDate;
+                }
+                checkDate.setDate(checkDate.getDate() - 1);
+            }
+            return null;
+        }
+
+        async function getArticlesForDate(date, type) {
+            const year = date.getFullYear();
+            const month = MONTHS[date.getMonth()];
+            const dateString = formatDateString(date);
+            const articles = [];
+            let articleNumber = 1;
+
+            while (true) {
+                const filename = `article${articleNumber}.html`;
+                const path = `${year}/${month}/${dateString}/${type}/${filename}`;
+                
+                try {
+                    const response = await fetch(path);
+                    if (!response.ok) break;
+                    articles.push({
+                        path,
+                        number: articleNumber,
+                        date: dateString,
+                        fullDate: new Date(date)
+                    });
+                    articleNumber++;
+                } catch (error) {
+                    break;
+                }
+            }
+
+            return articles;
+        }
+
+        async function loadArticlesForDate(date) {
+            const dateString = formatDateString(date);
+            if (!articlesByDate.has(dateString)) {
+                const articles = await getArticlesForDate(date, currentType);
+                if (articles.length > 0) {
+                    articlesByDate.set(dateString, articles);
+                }
+            }
+            return articlesByDate.get(dateString) || [];
+        }
+
+        function updateDateIndicator(dateString) {
+            const dateParts = dateString.split('-');
+            const date = new Date(20 + dateParts[2], dateParts[1] - 1, dateParts[0]);
+            document.getElementById('dateIndicator').textContent = 
+                date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+        }
+
+        async function loadArticle(dateString, articleIndex) {
+            const articles = articlesByDate.get(dateString);
+            if (!articles || articleIndex >= articles.length) return false;
+
+            const article = articles[articleIndex];
+            const wrapper = document.getElementById('articleWrapper');
+            
+            try {
+                const response = await fetch(article.path);
+                const html = await response.text();
+                
+                wrapper.innerHTML = html;
+                wrapper.scrollTop = 0; // Reset scroll position to top
+                updateDateIndicator(dateString);
+                
+                return true;
+            } catch (error) {
+                console.error('Error loading article:', error);
+                return false;
+            }
+        }
+
+        async function navigateToNextArticle() {
+            if (isLoadingMore) return;
+            isLoadingMore = true;
+
+            try {
+                const currentDateString = formatDateString(currentDate);
+                const currentArticles = articlesByDate.get(currentDateString);
+                
+                if (currentArticleIndex < currentArticles.length - 1) {
+                    currentArticleIndex++;
+                    await loadArticle(currentDateString, currentArticleIndex);
+                } else {
+                    const prevDate = await findPreviousDateWithArticles(currentDate, currentType);
+                    if (prevDate) {
+                        const articles = await loadArticlesForDate(prevDate);
+                        if (articles.length > 0) {
+                            currentDate = prevDate;
+                            currentArticleIndex = 0;
+                            await loadArticle(formatDateString(prevDate), 0);
+                        }
+                    }
+                }
+            } finally {
+                isLoadingMore = false;
+            }
+        }
+
+        async function navigateToPreviousArticle() {
+            if (isLoadingMore) return;
+            isLoadingMore = true;
+
+            try {
+                const currentDateString = formatDateString(currentDate);
+                
+                if (currentArticleIndex > 0) {
+                    currentArticleIndex--;
+                    await loadArticle(currentDateString, currentArticleIndex);
+                }
+            } finally {
+                isLoadingMore = false;
+            }
+        }
+
+        async function switchContent(type) {
+            try {
+                currentType = type;
+                currentArticleIndex = 0;
+                articlesByDate.clear();
+                
+                currentDate = await findLatestDateWithArticles(type);
+                
+                const articles = await loadArticlesForDate(currentDate);
+                if (articles.length > 0) {
+                    await loadArticle(formatDateString(currentDate), 0);
+                }
+                
+                document.getElementById('prelimsBtn').classList.toggle('active', type === 'quick_facts');
+                document.getElementById('editorialBtn').classList.toggle('active', type === 'editorials');
+            } catch (error) {
+                console.error('Error switching content:', error);
+                document.getElementById('articleWrapper').innerHTML = '<h1>No articles found</h1>';
+            }
+        }
+
+        let lastWheelTime = Date.now();
+        const WHEEL_THRESHOLD = 100; // milliseconds
+
+        function handleScroll(event) {
+            const currentTime = Date.now();
+            if (currentTime - lastWheelTime < WHEEL_THRESHOLD) return;
+            lastWheelTime = currentTime;
+
+            const wrapper = document.getElementById('articleWrapper');
+            const isAtTop = wrapper.scrollTop === 0;
+            const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
+            
+            if (isAtTop && event.deltaY < 0) {
+                event.preventDefault();
+                navigateToPreviousArticle();
+            } else if (isAtBottom && event.deltaY > 0) {
+                event.preventDefault();
+                navigateToNextArticle();
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('prelimsBtn').addEventListener('click', () => switchContent('quick_facts'));
+        document.getElementById('editorialBtn').addEventListener('click', () => switchContent('editorials'));
+        document.getElementById('articleWrapper').addEventListener('wheel', handleScroll);
+
+        // Touch events
+        let touchStartY = 0;
+        let lastTouchTime = Date.now();
+        const TOUCH_THRESHOLD = 200; // milliseconds
+
+        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
+            const currentTime = Date.now();
+            if (currentTime - lastTouchTime < TOUCH_THRESHOLD) return;
+            lastTouchTime = currentTime;
+
+            const touchY = e.touches[0].clientY;
+            const wrapper = document.getElementById('articleWrapper');
+            const isAtTop = wrapper.scrollTop === 0;
+            const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
+            
+            if (isAtTop && touchY > touchStartY) {
+                e.preventDefault();
+                navigateToPreviousArticle();
+            } else if (isAtBottom && touchY < touchStartY) {
+                e.preventDefault();
+                navigateToNextArticle();
+            }
+        }, { passive: false });
+
+        // Initial load
+        switchContent('quick_facts');
+    </script>
+</body>
+</html>

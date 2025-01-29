@@ -7,55 +7,87 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --text-color: #1f2937;
-            --bg-color: #f3f4f6;
-            --card-bg: #ffffff;
-            --hover-color: #dbeafe;
-            --border-color: #e5e7eb;
-        }
+	:root {
+	    --primary-color: #2563eb;
+	    --text-color: #1f2937;
+	    --bg-color: #f3f4f6;
+	    --card-bg: #ffffff;
+	    --hover-color: #dbeafe;
+	    --border-color: #e5e7eb;
+	}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+	body {
+	    font-family: 'Inter', sans-serif;
+	    margin: 0;
+	    padding: 0;
+	    background-color: var(--bg-color);
+	    color: var(--text-color);
+	    min-height: 100vh;
+	    display: flex;
+	    flex-direction: column;
+	    overflow: hidden;
+	}
 
-        .container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
+	.container {
+	    flex: 1;
+	    position: relative;
+	    overflow: hidden;
+	}
 
-        .articles-container {
-            height: calc(100vh - 80px);
-            overflow: hidden;
-            position: relative;
-        }
+	.articles-container {
+	    height: calc(100vh - 80px);
+	    overflow: hidden;
+	    position: relative;
+	}
 
-        .content-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: absolute;
-            transition: transform 0.3s ease;
-            background: var(--card-bg);
-        }
+	.content-frame {
+	    width: 100%;
+	    height: 100%;
+	    border: none;
+	    position: absolute;
+	    transition: transform 0.3s ease;
+	    background: var(--card-bg);
+	}
 
-        .article-wrapper {
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            scroll-behavior: smooth;
+	.article-wrapper {
+	    width: 100%;
+	    height: 100%;
+	    overflow-y: auto;
+	    scroll-behavior: smooth;
+	    padding: 20px;
 	    padding-bottom: 100px;
-        }
+	    box-sizing: border-box;
+	    -webkit-overflow-scrolling: touch;
+	}
+
+	/* Mobile-specific article content styling */
+	.article-wrapper h1 {
+	    font-size: clamp(1.5rem, 5vw, 2rem);
+	    line-height: 1.3;
+	}
+
+	.article-wrapper p {
+	    font-size: clamp(1rem, 4vw, 1.125rem);
+	    line-height: 1.6;
+	}
+
+	.article-wrapper img {
+	    max-width: 100%;
+	    height: auto;
+	}
+
+	.loading-indicator {
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    background: rgba(255, 255, 255, 0.9);
+	    padding: 1rem 2rem;
+	    border-radius: 8px;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	    display: none;
+	    z-index: 1000;
+	}
 
 	.bottom-nav {
 	    position: fixed;
@@ -73,34 +105,30 @@
 	}
 
 	.nav-button {
-	    /* Set fixed width and height */
 	    width: 140px;
 	    height: 44px;
-	    /* Use flex to maintain consistent layout */
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;
 	    gap: 0.75rem;
-	    /* Other styles */
 	    padding: 0.75rem 1.5rem;
 	    border: 1px solid var(--border-color);
 	    background: var(--card-bg);
 	    color: var(--text-color);
 	    border-radius: 0.75rem;
-	    font-size: 17px; /*0.95rem;*/
+	    font-size: 17px;
 	    font-weight: 500;
 	    cursor: pointer;
-	    /*transition: all 0.2s ease;*/
 	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	    /* Prevent text wrapping */
 	    white-space: nowrap;
+	    transition: transform 0.2s ease, background-color 0.2s ease;
+	    -webkit-tap-highlight-color: transparent;
 	}
 
 	.nav-button i {
 	    font-size: 1.1rem;
 	    color: inherit;
 	    transition: color 0.2s ease;
-	    /* Ensure icon maintains size */
 	    flex-shrink: 0;
 	}
 
@@ -109,67 +137,256 @@
 	    color: white;
 	    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
 	    border-color: var(--primary-color);
-	    /* Remove any potential size changes when active */
-	    transform: none;
 	}
 
 	.nav-button:not(.active):hover {
 	    background: var(--hover-color);
 	    color: var(--primary-color);
-	    /* Modify hover effect to not change size */
 	    transform: translateY(-1px);
 	}
-        .date-indicator {
-	    display:none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            font-weight: 500;
-        }
 
-        .scroll-indicator {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            background: rgba(0, 0, 0, 0.1);
-            color: var(--text-color);
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+	.error-message {
+	    position: fixed;
+	    top: 20px;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    text-align: center;
+	    padding: 1rem;
+	    color: #dc2626;
+	    background: #fee2e2;
+	    border-radius: 8px;
+	    margin: 1rem;
+	    display: none;
+	    z-index: 1001;
+	    width: 90%;
+	    max-width: 400px;
+	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
 
-        .scroll-indicator.visible {
-            opacity: 1;
-        }
+	.fade-transition {
+	    opacity: 0;
+	    transition: opacity 0.3s ease;
+	}
+
+	.fade-transition.visible {
+	    opacity: 1;
+	}
+
+	.navigation-hint {
+	    position: fixed;
+	    bottom: 100px;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    background: rgba(0, 0, 0, 0.8);
+	    color: white;
+	    padding: 0.75rem 1rem;
+	    border-radius: 8px;
+	    font-size: 0.875rem;
+	    display: none;
+	    z-index: 1000;
+	    white-space: nowrap;
+	}
+
+	/* Desktop Navigation */
+	@media (min-width: 769px) {
+	    .desktop-nav {
+		position: absolute;
+		bottom: 10%;
+		right: 20px;
+		display: flex;
+		gap: 10px;
+		z-index: 1000;
+	    }
+
+	    .desktop-nav-button {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 20px;
+		background: var(--primary-color);
+		/*color: white;*/
+		background-color: rgba(255, 0, 0, 0); 
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: 500;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+	    }
+
+	    .desktop-nav-button:hover {
+		transform: translateY(-2px);
+		background-color: #1a4ada;
+		color:white;
+		border:none;
+		box-shadow:0 4px 12px rgba(37, 99, 235, 0.3);
+	    }
+
+	    .desktop-nav-button:disabled {
+		background-color: #93c5fd;
+		cursor: not-allowed;
+		transform: none;
+		box-shadow: none;
+	    }
+
+	    .desktop-nav-button i {
+		font-size: 16px;
+	    }
+	}
+
+	/* Mobile Navigation */
+	@media (max-width: 768px) {
+	    .desktop-nav {
+		display: none;
+	    }
+
+	    .articles-container {
+		height: calc(100vh - 70px);
+	    }
+
+	    .article-wrapper {
+		padding: 16px;
+		padding-bottom: 90px;
+	    }
+
+	    .bottom-nav {
+		padding: 0.5rem;
+	    }
+
+	    .nav-button {
+		height: 40px;
+		padding: 0.5rem;
+	    }
+
+	    .mobile-article-nav {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 40px;
+		padding: 20px 0;
+		border-top: 1px solid var(--border-color);
+	    }
+
+	    .mobile-nav-button {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 12px;
+		background: var(--primary-color);
+		color: white;
+		border: none;
+		border-radius: 8px;
+		font-size: 14px;
+		font-weight: 500;
+		transition: background-color 0.2s ease;
+		box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+	    }
+
+	    .mobile-nav-button:disabled {
+		background: #93c5fd;
+		cursor: not-allowed;
+		box-shadow: none;
+	    }
+
+	    .mobile-nav-button i {
+		font-size: 14px;
+	    }
+
+	    .mobile-nav-button:active {
+		transform: scale(0.98);
+	    }
+	}
+
+	/* Pull-to-refresh styles */
+	.ptr-indicator {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    height: 60px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    background: var(--bg-color);
+	    transform: translateY(-100%);
+	    transition: transform 0.2s ease;
+	    z-index: 999;
+	}
+
+	.ptr-indicator.visible {
+	    transform: translateY(0);
+	}
+
+	/* Loading Animation */
+	@keyframes spin {
+	    to { transform: rotate(360deg); }
+	}
+
+	.loading-indicator i {
+	    animation: spin 1s linear infinite;
+	}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="date-indicator" id="dateIndicator"></div>
-        <div class="scroll-indicator" id="scrollIndicator"></div>
-        <div class="articles-container" id="articlesContainer">
-            <div class="article-wrapper" id="articleWrapper"></div>
+        <!-- Loading and Error Messages -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <i class="fas fa-spinner"></i>
+            Loading...
         </div>
-	<div class="bottom-nav">
-	    <button id="prelimsBtn" class="nav-button active">
-		<i class="fas fa-book-open"></i>
-		Prelims
-	    </button>
-	    <button id="editorialBtn" class="nav-button">
-		<i class="fas fa-newspaper"></i>
-		Editorial
-	    </button>
-	</div>
-    </div>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="navigation-hint" id="navigationHint"></div>
 
+        <!-- Articles Container -->
+        <div class="articles-container" id="articlesContainer">
+            <!-- Pull to Refresh Indicator -->
+            <div class="ptr-indicator" id="ptrIndicator">
+                <i class="fas fa-arrow-down"></i> Pull to refresh
+            </div>
+
+            <!-- Article Content Wrapper -->
+            <div class="article-wrapper fade-transition" id="articleWrapper">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav">
+            <button onclick="navigateToPreviousArticle()" class="desktop-nav-button" id="desktopPrevBtn">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button onclick="navigateToNextArticle()" class="desktop-nav-button" id="desktopNextBtn">
+                <i class="fas fa-arrow-right"></i> Next
+            </button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button id="prelimsBtn" class="nav-button active">
+                <i class="fas fa-book-open"></i>
+                Prelims
+            </button>
+            <button id="editorialBtn" class="nav-button">
+                <i class="fas fa-newspaper"></i>
+                Editorial
+            </button>
+        </div>
+
+        <!-- Mobile Article Navigation Template -->
+        <template id="mobileNavTemplate">
+            <div class="mobile-article-nav">
+                <button onclick="navigateToPreviousArticle()" class="mobile-nav-button">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button onclick="navigateToNextArticle()" class="mobile-nav-button">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </template>
+    </div>
     <script>
         const MONTHS = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -181,6 +398,35 @@
         let currentDate = null;
         let articlesByDate = new Map();
         let isLoadingMore = false;
+        let loadingTimeout;
+
+// Function to create a new article wrapper
+function createArticleWrapper() {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'article-wrapper';
+    return wrapper;
+}
+	    
+        function showLoading() {
+            clearTimeout(loadingTimeout);
+            loadingTimeout = setTimeout(() => {
+                document.getElementById('loadingIndicator').style.display = 'block';
+            }, 300);
+        }
+
+        function hideLoading() {
+            clearTimeout(loadingTimeout);
+            document.getElementById('loadingIndicator').style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 3000);
+        }
 
         function formatDateString(date) {
             const day = date.getDate().toString().padStart(2, '0');
@@ -268,87 +514,143 @@
             return articlesByDate.get(dateString) || [];
         }
 
-        function updateDateIndicator(dateString) {
-            const dateParts = dateString.split('-');
-            const date = new Date(20 + dateParts[2], dateParts[1] - 1, dateParts[0]);
-            document.getElementById('dateIndicator').textContent = 
-                date.toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'short', 
-                    day: 'numeric' 
-                });
+async function loadArticle(dateString, articleIndex, direction = null) {
+    const articles = articlesByDate.get(dateString);
+    if (!articles || articleIndex >= articles.length) return false;
+
+    const article = articles[articleIndex];
+    const container = document.getElementById('articlesContainer');
+    
+    try {
+        showLoading();
+        
+        // Create new wrapper for incoming article
+        const newWrapper = createArticleWrapper();
+        
+        // Position the new wrapper based on swipe direction
+        if (direction === 'right') {
+            newWrapper.classList.add('slide-from-left');
+        } else if (direction === 'left') {
+            newWrapper.classList.add('slide-from-right');
         }
-
-        async function loadArticle(dateString, articleIndex) {
-            const articles = articlesByDate.get(dateString);
-            if (!articles || articleIndex >= articles.length) return false;
-
-            const article = articles[articleIndex];
-            const wrapper = document.getElementById('articleWrapper');
-            
-            try {
-                const response = await fetch(article.path);
-                const html = await response.text();
-                
-                wrapper.innerHTML = html;
-                wrapper.scrollTop = 0; // Reset scroll position to top
-                updateDateIndicator(dateString);
-                
-                return true;
-            } catch (error) {
-                console.error('Error loading article:', error);
-                return false;
+        
+        // Load the article content
+        const response = await fetch(article.path);
+        const html = await response.text();
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        newWrapper.appendChild(tempDiv);
+        
+        // Add mobile navigation if needed
+        if (window.innerWidth <= 768) {
+            addMobileNavigation(newWrapper);
+        }
+        
+        // Get the current wrapper if it exists
+        const currentWrapper = container.querySelector('.article-wrapper');
+        
+        // Add the new wrapper to the container
+        container.appendChild(newWrapper);
+        
+        // Trigger reflow
+        newWrapper.offsetHeight;
+        
+        // Apply transitions
+        if (currentWrapper) {
+            if (direction === 'right') {
+                currentWrapper.classList.add('slide-to-right');
+            } else if (direction === 'left') {
+                currentWrapper.classList.add('slide-to-left');
             }
         }
+        
+        newWrapper.classList.add('current-article');
+        
+        // Wait for transition to complete
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Clean up old wrapper
+        if (currentWrapper) {
+            currentWrapper.remove();
+        }
+        
+        // Remove transition classes
+        newWrapper.classList.remove('slide-from-left', 'slide-from-right');
+        
+        // Update navigation buttons
+        updateNavigationButtons(dateString, articleIndex);
+        
+        return true;
+    } catch (error) {
+        console.error('Error loading article:', error);
+        showError('Failed to load article. Please try again.');
+        return false;
+    } finally {
+        hideLoading();
+    }
+}
 
-        async function navigateToNextArticle() {
-            if (isLoadingMore) return;
-            isLoadingMore = true;
 
-            try {
-                const currentDateString = formatDateString(currentDate);
-                const currentArticles = articlesByDate.get(currentDateString);
-                
-                if (currentArticleIndex < currentArticles.length - 1) {
-                    currentArticleIndex++;
-                    await loadArticle(currentDateString, currentArticleIndex);
-                } else {
-                    const prevDate = await findPreviousDateWithArticles(currentDate, currentType);
-                    if (prevDate) {
-                        const articles = await loadArticlesForDate(prevDate);
-                        if (articles.length > 0) {
-                            currentDate = prevDate;
-                            currentArticleIndex = 0;
-                            await loadArticle(formatDateString(prevDate), 0);
-                        }
-                    }
+async function navigateToNextArticle() {
+    if (isLoadingMore) return;
+    isLoadingMore = true;
+
+    try {
+        const currentDateString = formatDateString(currentDate);
+        const currentArticles = articlesByDate.get(currentDateString);
+        
+        if (currentArticleIndex < currentArticles.length - 1) {
+            currentArticleIndex++;
+            await loadArticle(currentDateString, currentArticleIndex, 'left');
+        } else {
+            const prevDate = await findPreviousDateWithArticles(currentDate, currentType);
+            if (prevDate) {
+                const articles = await loadArticlesForDate(prevDate);
+                if (articles.length > 0) {
+                    currentDate = prevDate;
+                    currentArticleIndex = 0;
+                    await loadArticle(formatDateString(prevDate), 0, 'left');
                 }
-            } finally {
-                isLoadingMore = false;
             }
         }
+    } catch (error) {
+        showError('Failed to load next article');
+    } finally {
+        isLoadingMore = false;
+    }
+}
 
-        async function navigateToPreviousArticle() {
-            if (isLoadingMore) return;
-            isLoadingMore = true;
 
-            try {
-                const currentDateString = formatDateString(currentDate);
-                
-                if (currentArticleIndex > 0) {
-                    currentArticleIndex--;
-                    await loadArticle(currentDateString, currentArticleIndex);
-                }
-            } finally {
-                isLoadingMore = false;
-            }
+async function navigateToPreviousArticle() {
+    if (isLoadingMore) return;
+    isLoadingMore = true;
+
+    try {
+        const currentDateString = formatDateString(currentDate);
+        
+        if (currentArticleIndex > 0) {
+            currentArticleIndex--;
+            await loadArticle(currentDateString, currentArticleIndex, 'right');
         }
+    } catch (error) {
+        showError('Failed to load previous article');
+    } finally {
+        isLoadingMore = false;
+    }
+}
+
 
         async function switchContent(type) {
             try {
+                showLoading();
                 currentType = type;
                 currentArticleIndex = 0;
                 articlesByDate.clear();
+                
+                const wrapper = document.getElementById('articleWrapper');
+                wrapper.classList.remove('visible');
+                wrapper.innerHTML = '';
                 
                 currentDate = await findLatestDateWithArticles(type);
                 
@@ -361,66 +663,385 @@
                 document.getElementById('editorialBtn').classList.toggle('active', type === 'editorials');
             } catch (error) {
                 console.error('Error switching content:', error);
+                showError('No articles found');
                 document.getElementById('articleWrapper').innerHTML = '<h1>No articles found</h1>';
+            } finally {
+                hideLoading();
             }
         }
 
-        let lastWheelTime = Date.now();
-        const WHEEL_THRESHOLD = 100; // milliseconds
+        // Improved scroll handling with debounce
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
 
-        function handleScroll(event) {
-            const currentTime = Date.now();
-            if (currentTime - lastWheelTime < WHEEL_THRESHOLD) return;
-            lastWheelTime = currentTime;
-
+        const handleScroll = debounce((event) => {
             const wrapper = document.getElementById('articleWrapper');
             const isAtTop = wrapper.scrollTop === 0;
             const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
             
             if (isAtTop && event.deltaY < 0) {
-                event.preventDefault();
-                navigateToPreviousArticle();
+                //event.preventDefault();
+                //navigateToPreviousArticle();
             } else if (isAtBottom && event.deltaY > 0) {
-                event.preventDefault();
-                navigateToNextArticle();
+                //event.preventDefault();
+                //navigateToNextArticle();
             }
-        }
+        }, 100);
 
         // Event Listeners
         document.getElementById('prelimsBtn').addEventListener('click', () => switchContent('quick_facts'));
         document.getElementById('editorialBtn').addEventListener('click', () => switchContent('editorials'));
         document.getElementById('articleWrapper').addEventListener('wheel', handleScroll);
 
-        // Touch events
+        // Touch events with improved handling
         let touchStartY = 0;
-        let lastTouchTime = Date.now();
-        const TOUCH_THRESHOLD = 200; // milliseconds
-
-        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        });
-
-        document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
-            const currentTime = Date.now();
-            if (currentTime - lastTouchTime < TOUCH_THRESHOLD) return;
-            lastTouchTime = currentTime;
-
+        const touchHandler = debounce((e, type) => {
             const touchY = e.touches[0].clientY;
             const wrapper = document.getElementById('articleWrapper');
             const isAtTop = wrapper.scrollTop === 0;
             const isAtBottom = Math.abs(wrapper.scrollHeight - wrapper.scrollTop - wrapper.clientHeight) < 1;
             
-            if (isAtTop && touchY > touchStartY) {
+            if (type === 'move') {
+                if (isAtTop && touchY > touchStartY) {
+                    //e.preventDefault();
+                    //navigateToPreviousArticle();
+                } else if (isAtBottom && touchY < touchStartY) {
+                    //e.preventDefault();
+                    //navigateToNextArticle();
+                }
+            }
+        }, 200);
+document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
+            touchHandler(e, 'move');
+        }, { passive: false });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' && e.ctrlKey) {
                 e.preventDefault();
                 navigateToPreviousArticle();
-            } else if (isAtBottom && touchY < touchStartY) {
+            } else if (e.key === 'ArrowDown' && e.ctrlKey) {
                 e.preventDefault();
                 navigateToNextArticle();
             }
+        });
+
+        // Add error handling for failed fetches
+        window.addEventListener('unhandledrejection', (event) => {
+            if (event.reason.name === 'TypeError' && event.reason.message.includes('fetch')) {
+                showError('Network error. Please check your connection.');
+            }
+        });
+
+        // Add cache management
+        const articleCache = {
+            maxSize: 50,
+            cache: new Map(),
+            
+            add(key, value) {
+                if (this.cache.size >= this.maxSize) {
+                    const firstKey = this.cache.keys().next().value;
+                    this.cache.delete(firstKey);
+                }
+                this.cache.set(key, value);
+            },
+            
+            get(key) {
+                return this.cache.get(key);
+            },
+            
+            has(key) {
+                return this.cache.has(key);
+            },
+            
+            clear() {
+                this.cache.clear();
+            }
+        };
+
+        // Add retry mechanism for failed fetches
+        async function fetchWithRetry(url, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response;
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+                }
+            }
+        }
+
+        // Add performance monitoring
+        const performance = {
+            measurements: new Map(),
+            
+            start(label) {
+                this.measurements.set(label, performance.now());
+            },
+            
+            end(label) {
+                const start = this.measurements.get(label);
+                if (start) {
+                    const duration = performance.now() - start;
+                    this.measurements.delete(label);
+                    if (duration > 1000) {
+                        console.warn(`Performance warning: ${label} took ${duration.toFixed(2)}ms`);
+                    }
+                }
+            }
+        };
+
+        // Improve content switching with loading states
+        async function switchContentWithState(type) {
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => button.disabled = true);
+            
+            try {
+                performance.start('switchContent');
+                await switchContent(type);
+            } finally {
+                performance.end('switchContent');
+                buttons.forEach(button => button.disabled = false);
+            }
+        }
+
+        // Add cleanup function for memory management
+        function cleanup() {
+            articleCache.clear();
+            articlesByDate.clear();
+            const wrapper = document.getElementById('articleWrapper');
+            wrapper.innerHTML = '';
+        }
+
+        // Add visibility change handler to pause/resume content loading
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                isLoadingMore = true; // Pause loading
+            } else {
+                isLoadingMore = false; // Resume loading
+            }
+        });
+
+        // Initialize the app
+        window.addEventListener('load', () => {
+            switchContent('quick_facts').catch(error => {
+                console.error('Failed to initialize app:', error);
+                showError('Failed to load initial content. Please refresh the page.');
+            });
+        });
+
+        // Add window resize handler
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const wrapper = document.getElementById('articleWrapper');
+                wrapper.style.height = `${window.innerHeight - 80}px`;
+            }, 100);
+        });
+
+        // Add pull-to-refresh functionality
+        let startY = 0;
+        let ptrThreshold = 60;
+        let isPulling = false;
+
+        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            if (document.getElementById('articleWrapper').scrollTop === 0) {
+                startY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        });
+
+        document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
+            if (!isPulling) return;
+            
+            const pull = e.touches[0].clientY - startY;
+            if (pull > 0 && document.getElementById('articleWrapper').scrollTop === 0) {
+                e.preventDefault();
+                const indicator = document.getElementById('ptrIndicator');
+                indicator.style.transform = `translateY(${Math.min(pull / 2, ptrThreshold)}px)`;
+            }
         }, { passive: false });
 
-        // Initial load
-        switchContent('quick_facts');
+        document.getElementById('articleWrapper').addEventListener('touchend', async (e) => {
+            if (!isPulling) return;
+            
+            const indicator = document.getElementById('ptrIndicator');
+            const pull = parseInt(indicator.style.transform.replace(/[^\d.-]/g, ''));
+            
+            if (pull >= ptrThreshold) {
+                // Refresh content
+                await switchContent(currentType);
+            }
+            
+            indicator.style.transform = '';
+            isPulling = false;
+        });
+
+        // Show navigation hints for new users
+        let hintTimeout;
+        function showNavigationHint(message) {
+            const hint = document.getElementById('navigationHint');
+            hint.textContent = message;
+            hint.style.display = 'block';
+            
+            clearTimeout(hintTimeout);
+            hintTimeout = setTimeout(() => {
+                hint.style.display = 'none';
+            }, 3000);
+        }
+
+        // Show hints on first visit
+        if (!localStorage.getItem('hasSeenHints')) {
+            setTimeout(() => {
+                showNavigationHint('Swipe up/down to navigate between articles');
+                localStorage.setItem('hasSeenHints', 'true');
+            }, 2000);
+        }
+
+        // Improve touch handling
+        let touchStartTime;
+        let touchEndTime;
+        let lastTap = 0;
+
+        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            touchStartTime = new Date().getTime();
+            touchStartY = e.touches[0].clientY;
+        });
+    // Add mobile swipe navigation
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const SWIPE_THRESHOLD = 50;
+
+        document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.getElementById('articleWrapper').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+    
+    if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+        if (swipeDistance > 0) {
+            // Swipe right - go to previous
+            navigateToPreviousArticle();
+        } else {
+            // Swipe left - go to next
+            navigateToNextArticle();
+        }
+    }
+}
+        // Function to add mobile navigation buttons to article content
+        function addMobileNavigation(wrapper) {
+            const navDiv = document.createElement('div');
+            navDiv.className = 'mobile-article-nav';
+            
+            const prevButton = document.createElement('button');
+            prevButton.className = 'mobile-nav-button';
+            prevButton.innerHTML = '<i class="fas fa-arrow-left"></i> Previous';
+            prevButton.onclick = navigateToPreviousArticle;
+            
+            const nextButton = document.createElement('button');
+            nextButton.className = 'mobile-nav-button';
+            nextButton.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+            nextButton.onclick = navigateToNextArticle;
+            
+            navDiv.appendChild(prevButton);
+            navDiv.appendChild(nextButton);
+            wrapper.appendChild(navDiv);
+        }
+
+        // Modify loadArticle function to add mobile navigation
+        async function loadArticle(dateString, articleIndex) {
+            const articles = articlesByDate.get(dateString);
+            if (!articles || articleIndex >= articles.length) return false;
+
+            const article = articles[articleIndex];
+            const wrapper = document.getElementById('articleWrapper');
+            
+            try {
+                showLoading();
+                wrapper.classList.remove('visible');
+                
+                const response = await fetch(article.path);
+                const html = await response.text();
+                
+                wrapper.innerHTML = '';
+                
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                wrapper.appendChild(tempDiv);
+
+                // Add mobile navigation buttons
+                if (window.innerWidth <= 768) {
+                    addMobileNavigation(wrapper);
+                }
+                
+                wrapper.scrollTop = 0;
+                
+                setTimeout(() => {
+                    wrapper.classList.add('visible');
+                }, 50);
+                
+                // Update button states
+                updateNavigationButtons(dateString, articleIndex);
+                
+                return true;
+            } catch (error) {
+                console.error('Error loading article:', error);
+                showError('Failed to load article. Please try again.');
+                return false;
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Function to update navigation button states
+        function updateNavigationButtons(dateString, articleIndex) {
+            const articles = articlesByDate.get(dateString);
+            const prevButtons = document.querySelectorAll('.mobile-nav-button:first-child, #desktopPrevBtn');
+            const nextButtons = document.querySelectorAll('.mobile-nav-button:last-child, #desktopNextBtn');
+
+            // Disable previous button if at first article
+            prevButtons.forEach(btn => {
+                btn.disabled = articleIndex === 0;
+            });
+
+            // Next button is always enabled as we can always try to load more articles
+            nextButtons.forEach(btn => {
+                btn.disabled = false;
+            });
+        }
+
+        // Remove the old scroll and wheel event listeners
+        document.getElementById('articleWrapper').removeEventListener('wheel', handleScroll);
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            switchContent('quick_facts').catch(error => {
+                console.error('Failed to initialize app:', error);
+                showError('Failed to load initial content. Please refresh the page.');
+            });
+        });
     </script>
 </body>
 </html>
