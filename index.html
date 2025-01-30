@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,328 +8,389 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-	:root {
-	    --primary-color: #2563eb;
-	    --text-color: #1f2937;
-	    --bg-color: #f3f4f6;
-	    --card-bg: #ffffff;
-	    --hover-color: #dbeafe;
-	    --border-color: #e5e7eb;
-	}
+:root {
+    --primary-color: #2563eb;
+    --text-color: #1f2937;
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --hover-color: #dbeafe;
+    --border-color: #e5e7eb;
+}
 
-	body {
-	    font-family: 'Inter', sans-serif;
-	    margin: 0;
-	    padding: 0;
-	    background-color: var(--bg-color);
-	    color: var(--text-color);
-	    min-height: 100vh;
-	    display: flex;
-	    flex-direction: column;
-	    overflow: hidden;
-	}
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 
-	.container {
-	    flex: 1;
-	    position: relative;
-	    overflow: hidden;
-	}
+.container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
 
-	.articles-container {
-	    height: calc(100vh - 80px);
-	    overflow: hidden;
-	    position: relative;
-	}
+.articles-container {
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    position: relative;
+}
 
-	.content-frame {
-	    width: 100%;
-	    height: 100%;
-	    border: none;
-	    position: absolute;
-	    transition: transform 0.3s ease;
-	    background: var(--card-bg);
-	}
+.content-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    transition: transform 0.3s ease;
+    background: var(--card-bg);
+}
 
-	.article-wrapper {
-	    width: 100%;
-	    height: 100%;
-	    overflow-y: auto;
-	    scroll-behavior: smooth;
-	    padding: 20px;
-	    padding-bottom: 100px;
-	    box-sizing: border-box;
-	    -webkit-overflow-scrolling: touch;
-	}
+/* Article Content Styling */
+.article-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 100px;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.3s ease-out, opacity 0.2s ease;
+    will-change: transform;
+    position: relative;
+    background: var(--card-bg);
+}
 
-	/* Mobile-specific article content styling */
-	.article-wrapper h1 {
-	    font-size: clamp(1.5rem, 5vw, 2rem);
-	    line-height: 1.3;
-	}
+.article-wrapper h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.3;
+    margin: 1rem 0;
+}
 
-	.article-wrapper p {
-	    font-size: clamp(1rem, 4vw, 1.125rem);
-	    line-height: 1.6;
-	}
+.article-wrapper p {
+    font-size: clamp(1rem, 4vw, 1.125rem);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
 
-	.article-wrapper img {
-	    max-width: 100%;
-	    height: auto;
-	}
+.article-wrapper img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+}
 
-	.loading-indicator {
-	    position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    background: rgba(255, 255, 255, 0.9);
-	    padding: 1rem 2rem;
-	    border-radius: 8px;
-	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	    display: none;
-	    z-index: 1000;
-	}
+/* Loading States */
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
 
-	.bottom-nav {
-	    position: fixed;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-	    background: var(--card-bg);
-	    padding: 0.5rem 1rem;
-	    display: flex;
-	    justify-content: center;
-	    gap: 1rem;
-	    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
-	    z-index: 1000;
-	    border-top: 1px solid var(--border-color);
-	}
+/* Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-top: 1px solid var(--border-color);
+}
 
-	.nav-button {
-	    width: 140px;
-	    height: 44px;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    gap: 0.75rem;
-	    padding: 0.75rem 1.5rem;
-	    border: 1px solid var(--border-color);
-	    background: var(--card-bg);
-	    color: var(--text-color);
-	    border-radius: 0.75rem;
-	    font-size: 17px;
-	    font-weight: 500;
-	    cursor: pointer;
-	    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-	    white-space: nowrap;
-	    transition: transform 0.2s ease, background-color 0.2s ease;
-	    -webkit-tap-highlight-color: transparent;
-	}
+.nav-button {
+    width: 140px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 0.75rem;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
 
-	.nav-button i {
-	    font-size: 1.1rem;
-	    color: inherit;
-	    transition: color 0.2s ease;
-	    flex-shrink: 0;
-	}
+.nav-button i {
+    font-size: 1.1rem;
+    color: inherit;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
 
-	.nav-button.active {
-	    background: var(--primary-color);
-	    color: white;
-	    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
-	    border-color: var(--primary-color);
-	}
+.nav-button.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    border-color: var(--primary-color);
+}
 
-	.nav-button:not(.active):hover {
-	    background: var(--hover-color);
-	    color: var(--primary-color);
-	    transform: translateY(-1px);
-	}
+.nav-button:not(.active):hover {
+    background: var(--hover-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
 
-	.error-message {
-	    position: fixed;
-	    top: 20px;
-	    left: 50%;
-	    transform: translateX(-50%);
-	    text-align: center;
-	    padding: 1rem;
-	    color: #dc2626;
-	    background: #fee2e2;
-	    border-radius: 8px;
-	    margin: 1rem;
-	    display: none;
-	    z-index: 1001;
-	    width: 90%;
-	    max-width: 400px;
-	    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	}
+/* Error and Notification States */
+.error-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 1rem;
+    color: #dc2626;
+    background: #fee2e2;
+    border-radius: 8px;
+    margin: 1rem;
+    display: none;
+    z-index: 1001;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-	.fade-transition {
-	    opacity: 0;
-	    transition: opacity 0.3s ease;
-	}
+/* Desktop Navigation */
+@media (min-width: 769px) {
+    .desktop-nav {
+        position: absolute;
+        bottom: 10%;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+    }
 
-	.fade-transition.visible {
-	    opacity: 1;
-	}
+    .desktop-nav-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: var(--primary-color);
+        background-color: rgba(255, 0, 0, 0);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    }
 
-	.navigation-hint {
-	    position: fixed;
-	    bottom: 100px;
-	    left: 50%;
-	    transform: translateX(-50%);
-	    background: rgba(0, 0, 0, 0.8);
-	    color: white;
-	    padding: 0.75rem 1rem;
-	    border-radius: 8px;
-	    font-size: 0.875rem;
-	    display: none;
-	    z-index: 1000;
-	    white-space: nowrap;
-	}
+    .desktop-nav-button:hover {
+        transform: translateY(-2px);
+        background-color: #1a4ada;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
 
-	/* Desktop Navigation */
-	@media (min-width: 769px) {
-	    .desktop-nav {
-		position: absolute;
-		bottom: 10%;
-		right: 20px;
-		display: flex;
-		gap: 10px;
-		z-index: 1000;
-	    }
+    .desktop-nav-button:disabled {
+        background-color: #93c5fd;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+}
 
-	    .desktop-nav-button {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		padding: 12px 20px;
-		background: var(--primary-color);
-		/*color: white;*/
-		background-color: rgba(255, 0, 0, 0); 
-		border: none;
-		border-radius: 8px;
-		cursor: pointer;
-		font-size: 14px;
-		font-weight: 500;
-		transition: all 0.2s ease;
-		box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
-	    }
+/* Mobile-specific Styles and Animations */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
 
-	    .desktop-nav-button:hover {
-		transform: translateY(-2px);
-		background-color: #1a4ada;
-		color:white;
-		border:none;
-		box-shadow:0 4px 12px rgba(37, 99, 235, 0.3);
-	    }
+    .articles-container {
+        height: calc(100vh - 70px);
+    }
 
-	    .desktop-nav-button:disabled {
-		background-color: #93c5fd;
-		cursor: not-allowed;
-		transform: none;
-		box-shadow: none;
-	    }
+    .article-wrapper {
+        padding: 1px;
+        padding-bottom: 150px;
+        touch-action: pan-y pinch-zoom;
+    }
 
-	    .desktop-nav-button i {
-		font-size: 16px;
-	    }
-	}
+    /* Mobile Navigation */
+    .mobile-article-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 40px;
+        padding: 20px 0;
+        border-top: 1px solid var(--border-color);
+    }
 
-	/* Mobile Navigation */
-	@media (max-width: 768px) {
-	    .desktop-nav {
-		display: none;
-	    }
+    .mobile-nav-button {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    }
 
-	    .articles-container {
-		height: calc(100vh - 70px);
-	    }
+    .mobile-nav-button:disabled {
+        background: #93c5fd;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
 
-	    .article-wrapper {
-		padding: 16px;
-		padding-bottom: 90px;
-	    }
+    /* Swipe Animations */
+    .slide-from-right {
+        transform: translateX(100%);
+    }
 
-	    .bottom-nav {
-		padding: 0.5rem;
-	    }
+    .slide-from-left {
+        transform: translateX(-100%);
+    }
 
-	    .nav-button {
-		height: 40px;
-		padding: 0.5rem;
-	    }
+    .slide-to-right {
+        transform: translateX(100%);
+    }
 
-	    .mobile-article-nav {
-		display: flex;
-		justify-content: space-between;
-		gap: 12px;
-		margin-top: 40px;
-		padding: 20px 0;
-		border-top: 1px solid var(--border-color);
-	    }
+    .slide-to-left {
+        transform: translateX(-100%);
+    }
 
-	    .mobile-nav-button {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		padding: 12px;
-		background: var(--primary-color);
-		color: white;
-		border: none;
-		border-radius: 8px;
-		font-size: 14px;
-		font-weight: 500;
-		transition: background-color 0.2s ease;
-		box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
-	    }
+    .current-article {
+        transform: translateX(0);
+    }
 
-	    .mobile-nav-button:disabled {
-		background: #93c5fd;
-		cursor: not-allowed;
-		box-shadow: none;
-	    }
+    /* Swipe Overlay Effects */
+    .swipe-overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        z-index: 1000;
+        background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+    }
 
-	    .mobile-nav-button i {
-		font-size: 14px;
-	    }
+    .swipe-overlay-left {
+        left: 0;
+        transform: scaleX(-1);
+    }
 
-	    .mobile-nav-button:active {
-		transform: scale(0.98);
-	    }
-	}
+    .swipe-overlay-right {
+        right: 0;
+    }
 
-	/* Pull-to-refresh styles */
-	.ptr-indicator {
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    right: 0;
-	    height: 60px;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    background: var(--bg-color);
-	    transform: translateY(-100%);
-	    transition: transform 0.2s ease;
-	    z-index: 999;
-	}
+    .swipe-overlay.visible {
+        opacity: 1;
+    }
 
-	.ptr-indicator.visible {
-	    transform: translateY(0);
-	}
+    /* Peek Effects */
+    .peek-left {
+        transform: translateX(40px);
+        transition: transform 0.2s ease-out;
+    }
 
-	/* Loading Animation */
-	@keyframes spin {
-	    to { transform: rotate(360deg); }
-	}
+    .peek-right {
+        transform: translateX(-40px);
+        transition: transform 0.2s ease-out;
+    }
+}
 
-	.loading-indicator i {
-	    animation: spin 1s linear infinite;
-	}
+/* Transition States */
+.fade-transition {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-transition.visible {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* Pull to Refresh */
+.ptr-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    transform: translateY(-100%);
+    transition: transform 0.2s ease;
+    z-index: 999;
+}
+
+.ptr-indicator.visible {
+    transform: translateY(0);
+}
+
+/* Loading Animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-indicator i {
+    animation: spin 1s linear infinite;
+}
+
+/* Navigation Hint */
+.navigation-hint {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    display: none;
+    z-index: 1000;
+    white-space: nowrap;
+}
     </style>
+
 </head>
 <body>
     <div class="container">
@@ -399,6 +461,10 @@
         let articlesByDate = new Map();
         let isLoadingMore = false;
         let loadingTimeout;
+	let touchDeltaX = 0;
+let initialTouchX = 0;
+let swipeOverlayLeft;
+let swipeOverlayRight;
 
 // Function to create a new article wrapper
 function createArticleWrapper() {
@@ -448,18 +514,33 @@ function createArticleWrapper() {
             }
         }
 
-        async function findLatestDateWithArticles(type) {
-            const startDate = new Date();
-            let currentCheck = new Date(startDate);
-            
-            for (let i = 0; i < 30; i++) {
-                if (await checkDateForArticles(currentCheck, type)) {
-                    return currentCheck;
-                }
-                currentCheck.setDate(currentCheck.getDate() - 1);
-            }
-            throw new Error('No articles found in the last 30 days');
+
+// Modify findLatestDateWithArticles to store the latest date
+async function findLatestDateWithArticles(type) {
+    const startDate = new Date();
+    let currentCheck = new Date(startDate);
+    
+    for (let i = 0; i < 30; i++) {
+        if (await checkDateForArticles(currentCheck, type)) {
+            latestDate = new Date(currentCheck); // Store the latest date
+            return currentCheck;
         }
+        currentCheck.setDate(currentCheck.getDate() - 1);
+    }
+    throw new Error('No articles found in the last 30 days');
+}
+
+
+
+// Function to check if a date is one day before the latest date
+function isOneDayBeforeLatest(checkDate) {
+    if (!latestDate) return false;
+    
+    const oneDayBefore = new Date(latestDate);
+    oneDayBefore.setDate(oneDayBefore.getDate() - 1);
+    
+    return checkDate.getTime() === oneDayBefore.getTime();
+}	    
 
         async function findPreviousDateWithArticles(date, type) {
             let checkDate = new Date(date);
@@ -628,12 +709,63 @@ async function navigateToPreviousArticle() {
 
     try {
         const currentDateString = formatDateString(currentDate);
+        const currentArticles = articlesByDate.get(currentDateString);
         
         if (currentArticleIndex > 0) {
+            // If not at first article of current date, move to previous article
             currentArticleIndex--;
             await loadArticle(currentDateString, currentArticleIndex, 'right');
+        } else {
+            // At first article of current date, try to move to the next date
+            const nextDate = new Date(currentDate);
+            nextDate.setDate(nextDate.getDate() + 1);
+            
+            // Check if we're trying to go beyond the latest date
+            if (latestDate && nextDate > latestDate) {
+                showError('No more recent articles available');
+                return;
+            }
+            
+            const hasArticles = await checkDateForArticles(nextDate, currentType);
+            if (hasArticles) {
+                const nextArticles = await loadArticlesForDate(nextDate);
+                if (nextArticles.length > 0) {
+                    currentDate = nextDate;
+                    currentArticleIndex = nextArticles.length - 1;
+                    await loadArticle(formatDateString(nextDate), currentArticleIndex, 'right');
+                }
+            } else {
+                // If no articles in next date, try subsequent dates
+                let findNextValidDate = new Date(nextDate);
+                let foundValidDate = false;
+                
+                // Try up to 7 days forward
+                for (let i = 0; i < 7; i++) {
+                    // Don't search beyond latest date
+                    if (latestDate && findNextValidDate > latestDate) {
+                        break;
+                    }
+                    
+                    if (await checkDateForArticles(findNextValidDate, currentType)) {
+                        foundValidDate = true;
+                        const articles = await loadArticlesForDate(findNextValidDate);
+                        if (articles.length > 0) {
+                            currentDate = findNextValidDate;
+                            currentArticleIndex = articles.length - 1;
+                            await loadArticle(formatDateString(findNextValidDate), currentArticleIndex, 'right');
+                            break;
+                        }
+                    }
+                    findNextValidDate.setDate(findNextValidDate.getDate() + 1);
+                }
+                
+                if (!foundValidDate) {
+                    showError('No more recent articles available');
+                }
+            }
         }
     } catch (error) {
+        console.error('Error navigating to previous article:', error);
         showError('Failed to load previous article');
     } finally {
         isLoadingMore = false;
@@ -926,7 +1058,7 @@ document.getElementById('articleWrapper').addEventListener('touchstart', (e) => 
     // Add mobile swipe navigation
         let touchStartX = 0;
         let touchEndX = 0;
-        const SWIPE_THRESHOLD = 50;
+        const SWIPE_THRESHOLD = 100;
 
         document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
@@ -1015,23 +1147,31 @@ function handleSwipe() {
             }
         }
 
-        // Function to update navigation button states
-        function updateNavigationButtons(dateString, articleIndex) {
-            const articles = articlesByDate.get(dateString);
-            const prevButtons = document.querySelectorAll('.mobile-nav-button:first-child, #desktopPrevBtn');
-            const nextButtons = document.querySelectorAll('.mobile-nav-button:last-child, #desktopNextBtn');
+// Update the updateNavigationButtons function
+function updateNavigationButtons(dateString, articleIndex) {
+    const articles = articlesByDate.get(dateString);
+    const prevButtons = document.querySelectorAll('.mobile-nav-button:first-child, #desktopPrevBtn');
+    const nextButtons = document.querySelectorAll('.mobile-nav-button:last-child, #desktopNextBtn');
 
-            // Disable previous button if at first article
-            prevButtons.forEach(btn => {
-                btn.disabled = articleIndex === 0;
-            });
+    // Convert dateString back to Date object for comparison
+    const currentDateParts = dateString.split('-');
+    const currentDateObj = new Date(
+        '20' + currentDateParts[2], // year
+        parseInt(currentDateParts[1]) - 1, // month (0-based)
+        currentDateParts[0] // day
+    );
 
-            // Next button is always enabled as we can always try to load more articles
-            nextButtons.forEach(btn => {
-                btn.disabled = false;
-            });
-        }
+    // Disable previous button only if we're at one day before the latest date
+    const shouldDisablePrev = isOneDayBeforeLatest(currentDateObj);
+    prevButtons.forEach(btn => {
+        btn.disabled = shouldDisablePrev;
+    });
 
+    // Next button is enabled only if we're not at the latest date
+    nextButtons.forEach(btn => {
+        btn.disabled = false;
+    });
+}
         // Remove the old scroll and wheel event listeners
         document.getElementById('articleWrapper').removeEventListener('wheel', handleScroll);
         
@@ -1042,6 +1182,99 @@ function handleSwipe() {
                 showError('Failed to load initial content. Please refresh the page.');
             });
         });
+
+// Create and add swipe overlays
+function createSwipeOverlays() {
+    swipeOverlayLeft = document.createElement('div');
+    swipeOverlayRight = document.createElement('div');
+    
+    swipeOverlayLeft.className = 'swipe-overlay swipe-overlay-left';
+    swipeOverlayRight.className = 'swipe-overlay swipe-overlay-right';
+    
+    document.querySelector('.articles-container').appendChild(swipeOverlayLeft);
+    document.querySelector('.articles-container').appendChild(swipeOverlayRight);
+}
+
+// Update touch event handlers
+document.getElementById('articleWrapper').addEventListener('touchstart', (e) => {
+    initialTouchX = e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchDeltaX = 0;
+});
+
+document.getElementById('articleWrapper').addEventListener('touchmove', (e) => {
+    if (Math.abs(e.touches[0].clientY - touchStartY) > Math.abs(e.touches[0].clientX - touchStartX)) {
+        return; // Vertical scroll, don't interfere
+    }
+    
+    touchDeltaX = e.touches[0].clientX - initialTouchX;
+    const wrapper = document.getElementById('articleWrapper');
+    
+    // Only apply transform if the scroll is at top or bottom
+    if (wrapper.scrollTop === 0 || wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight) {
+        if (Math.abs(touchDeltaX) < window.innerWidth * 0.5) {
+            wrapper.style.transform = `translateX(${touchDeltaX}px)`;
+            
+            // Show appropriate overlay based on swipe direction
+            if (touchDeltaX > 0) {
+                swipeOverlayLeft.classList.add('visible');
+                swipeOverlayRight.classList.remove('visible');
+            } else if (touchDeltaX < 0) {
+                swipeOverlayRight.classList.add('visible');
+                swipeOverlayLeft.classList.remove('visible');
+            }
+            
+            e.preventDefault();
+        }
+    }
+}, { passive: false });
+
+document.getElementById('articleWrapper').addEventListener('touchend', (e) => {
+    const wrapper = document.getElementById('articleWrapper');
+    const swipeThreshold = window.innerWidth * 0.5; // 20% of screen width
+    
+    // Hide overlays
+    swipeOverlayLeft.classList.remove('visible');
+    swipeOverlayRight.classList.remove('visible');
+    
+    if (Math.abs(touchDeltaX) > swipeThreshold) {
+        // Add fade-out class before navigation
+        wrapper.classList.add('fade-out');
+        
+        setTimeout(() => {
+            if (touchDeltaX > 0) {
+                navigateToPreviousArticle();
+            } else {
+                navigateToNextArticle();
+            }
+            
+            // Reset transform and add fade-in after navigation
+            wrapper.style.transform = '';
+            wrapper.classList.remove('fade-out');
+            wrapper.classList.add('fade-in');
+            
+            setTimeout(() => {
+                wrapper.classList.remove('fade-in');
+            }, 200);
+        }, 200);
+    } else {
+        // Spring back animation if swipe threshold not met
+        wrapper.style.transition = 'transform 0.3s ease-out';
+        wrapper.style.transform = '';
+        
+        setTimeout(() => {
+            wrapper.style.transition = '';
+        }, 300);
+    }
+});
+
+// Initialize swipe overlays on page load
+window.addEventListener('load', () => {
+    if (window.innerWidth <= 768) {
+        createSwipeOverlays();
+    }
+});	    
     </script>
 </body>
 </html>
