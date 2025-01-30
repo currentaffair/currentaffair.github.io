@@ -1,4 +1,3 @@
-/* Set base font size for better readability */
 html {
     font-size: 25px; /* Base font size : strictly keep base font size 25px*/
     -webkit-text-size-adjust: 100%; /* Prevent automatic text scaling on iOS */
@@ -17,16 +16,15 @@ body {
 header {
     background-color: #0066cc;
     color: white;
-    padding: 1.25rem;
+    padding: 0.05rem;
     text-align: center;
-    /* strictly keep the font size 50px for header do not use relative font size here */
-    font-size: 50px;
+    font-size: 1rem;
     font-weight: bold;
 }
 
 section {
-    margin: 1.25rem;
-    padding: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
     background-color: #ffffff;
     border-radius: 0.5rem;
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
@@ -52,6 +50,8 @@ p {
     margin-bottom: 1rem;
 }
 
+
+
 .highlight {
     background-color: #ffeaff;
     padding: 0.625rem;
@@ -66,44 +66,98 @@ p {
     font-size: 1.125rem;
 }
 
+
+.previous {
+    background-color: #eaffea ;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+}
+
+
+.potential {
+    background-color: #fff5e6;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+}
+
+
+
 .conclusion {
     background-color: #ccf2ff;
     padding: 0.938rem;
     margin-top: 1.25rem;
-    font-weight: bold;
-    text-align: center;
+    /*font-weight: bold;*/
+    /*text-align: center;*/
     font-size: 1.125rem;
 }
 
+.news-card p {
+    margin: -2px 0; /* Default paragraph spacing */
+}
+
+
+.content {
+    padding: 0.5rem;
+  }
+
+.content p {
+    margin-bottom: 0.5rem;
+    line-height: 0.5;
+    color: #374151;
+  }
+
+.content p:last-child {
+    margin-bottom: 0;
+  }
+
+.content strong {
+    color: #111827;
+    margin-right: 0.5rem;
+  }
+
+.content a {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+.content a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+
+
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-family: Arial, sans-serif;
+    width: 100%; 
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
 }
 
 th, td {
-  padding: 12px;
-  border: 1px solid #0066cc;
+    padding: 12px;
+    border: 1px solid #0066cc;
 }
 
 th {
-  background-color: #0066cc;
-  color: white;
-  text-align: left;
+    background-color: #0066cc;
+    color: white;
+    text-align: left;
 }
 
 tr:nth-child(even) {
-  background-color: #e6f0ff;
+    background-color: #e6f0ff;
 }
 
 tr:hover {
-  background-color: #cce0ff;
-  transition: background-color 0.3s ease;
+    background-color: #cce0ff;
+    transition: background-color 0.3s ease;
 }
 
 td {
-  color: #333;
+    color: #333;
 }
 
 footer {
@@ -132,7 +186,7 @@ footer {
     }
 
     header {
-	font-size: 1.6rem;
+	font-size: 0.9rem;
 	padding: 1rem;
     }
 
@@ -164,6 +218,32 @@ footer {
 	max-width: 1200px;
 	margin: 1.25rem auto;
     }
+.image-n-news{
+    display: grid;
+    grid-template-columns: 1fr 1.8fr; /* Left column is wider */
+    gap: 30px;
+    background: #ffffff;
+}
+
+.image-n-news img{
+    display:flex;
+    flex-direction:row;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    
+}
+.image-n-news .news-card{
+	display:inline-block;
+	  grid-column: 2;
+}
+
+.intro .intro-para{
+    grid-column: 1/ span 2;
+    margin-top : -40px;
+}
+
+
+
 }
 
 /* High contrast and readability improvements */
