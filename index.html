@@ -740,8 +740,8 @@ async function navigateToPreviousArticle() {
                 let findNextValidDate = new Date(nextDate);
                 let foundValidDate = false;
                 
-                // Try up to 20 days forward
-                for (let i = 0; i < 20; i++) {
+                // Try up to 7 days forward
+                for (let i = 0; i < 7; i++) {
                     // Don't search beyond latest date
                     if (latestDate && findNextValidDate > latestDate) {
                         break;
