@@ -720,8 +720,6 @@ async function navigateToPreviousArticle() {
             const nextDate = new Date(currentDate);
             nextDate.setDate(nextDate.getDate() + 1);
             
-            // Check if we're trying to go beyond the latest date
-/
             if (latestDate && nextDate > latestDate) {
                 showError('No more recent articles available');
                 return;
@@ -740,8 +738,8 @@ async function navigateToPreviousArticle() {
                 let findNextValidDate = new Date(nextDate);
                 let foundValidDate = false;
                 
-                // Try up to 7 days forward
-                for (let i = 0; i < 7; i++) {
+                // Try up to 30 days forward
+                for (let i = 0; i < 30; i++) {
                     // Don't search beyond latest date
                     if (latestDate && findNextValidDate > latestDate) {
                         break;
