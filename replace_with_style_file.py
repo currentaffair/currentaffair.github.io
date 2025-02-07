@@ -58,7 +58,7 @@ if __name__ == "__main__":
     quick_facts_style_path ='../../../../quick_facts_style.css' 
     print(" making changes in the all the files of the January")
     
-    dates = os.listdir('./2025/January/')
+    dates = os.listdir('./2025/February/')
     print(dates)
     dates_folders  =  []
     for date in dates:
